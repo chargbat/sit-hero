@@ -1,0 +1,85 @@
+/* ==========================================================================
+   SIT Hero (IT Hero) — Base Styles & Typography
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  background: var(--stage);
+  color: var(--navy);
+  font-family: var(--font-sans);
+  padding-block: 20px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--ocean);
+  outline-offset: 2px;
+}
+
+/* Typography Scale */
+.t-h1 {
+  font-size: 44px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.t-h2 {
+  font-size: 30px;
+  line-height: 1.25;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.t-h3 {
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.t-cap {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Mobile Viewport Typography Overrides (.m wrapper) */
+.m .t-h1 { font-size: 30px; }
+.m .t-h2 { font-size: 23px; }
+.m .t-h3 { font-size: 19px; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B9CDD5;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #96B2BE;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+

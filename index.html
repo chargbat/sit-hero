@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SIT Hero (IT Hero) — Prototype</title>
+  <link rel="icon" href="assets/logo.png" />
+
+  <!-- Google Fonts: Inter, IBM Plex Sans Thai, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+  />
+
+  <!-- Tailwind CSS CDN & Brand Theme Config -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0D1C36',
+            steel: '#2C4966',
+            ocean: '#5A8FA3',
+            mint: '#D8F3E5',
+            ice: '#F6F9FA',
+            line: '#E2ECEF',
+            muted: '#51627A',
+            danger: '#B4413A',
+            brandOrange: '#F26522',
+            brandOrangeLight: '#FFF3EB',
+            brandOrangeBorder: '#FFD3BD'
+          },
+          fontFamily: {
+            sans: ['Inter', '"IBM Plex Sans Thai"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Space Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Modular Stylesheets (แยกสัดส่วนชัดเจนสำหรับปรับแต่ง Theme & Animation) -->
+  <link rel="stylesheet" href="styles/variables.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/animations.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React 18 UMD Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+
+  <!-- 1. Data Layer (ข้อมูลหลักสูตร SIT KMUTT ปี 1-4, กระทู้, ชีทสรุป, Autobot, โปรไฟล์) -->
+  <script src="src/data/profile.js"></script>
+  <script src="src/data/curriculum.js"></script>
+  <script src="src/data/community.js"></script>
+  <script src="src/data/knowledge.js"></script>
+  <script src="src/data/autobot.js"></script>
+
+  <!-- 2. Utilities & SVG Icons -->
+  <script src="src/utils/helpers.js"></script>
+  <script src="src/utils/icons.js"></script>
+
+  <!-- 3. Common Shared UI Components -->
+  <script src="src/components/common/UI.js"></script>
+  <script src="src/components/common/Modal.js"></script>
+  <script src="src/components/common/Navbar.js"></script>
+
+  <!-- 4. Feature Pages (5 โมดูลหลัก + User Profile Modal) -->
+  <script src="src/components/pages/Home.js"></script>
+  <script src="src/components/pages/UserModal.js"></script>
+  <script src="src/components/pages/CourseGuide.js"></script>
+  <script src="src/components/pages/Community.js"></script>
+  <script src="src/components/pages/Knowledge.js"></script>
+  <script src="src/components/pages/Autobot.js"></script>
+
+  <!-- 5. Root Application & Viewport Controller -->
+  <script src="src/App.js"></script>
+</body>
+</html>
+

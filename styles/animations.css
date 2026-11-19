@@ -1,0 +1,147 @@
+/* ==========================================================================
+   SIT Hero (IT Hero) — Animations & Micro-Interactions
+   ไฟล์นี้แยกไว้สำหรับการปรับแต่ง Keyframes, Page Transitions, และ Hover Effects
+   ========================================================================== */
+
+/* 1. Keyframes Definitions */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleSpring {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes accordionDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Utility Animation Classes */
+.anim-page {
+  animation: fadeUp var(--dur-normal) var(--ease-out-expo) both;
+}
+
+.anim-fade-up {
+  animation: fadeUp var(--dur-slow) var(--ease-out-expo) both;
+}
+
+.anim-fade-in {
+  animation: fadeIn var(--dur-fast) var(--ease-smooth) both;
+}
+
+.anim-modal-panel {
+  animation: scaleSpring var(--dur-normal) var(--ease-spring) both;
+}
+
+.anim-slide-right {
+  animation: slideInRight var(--dur-normal) var(--ease-out-expo) both;
+}
+
+.anim-accordion {
+  animation: accordionDown 240ms var(--ease-out-expo) both;
+}
+
+.anim-float {
+  animation: floatSlow 3.2s ease-in-out infinite;
+}
+
+.anim-pulse-soft {
+  animation: pulseSoft 2.4s ease-in-out infinite;
+}
+
+/* 3. Stagger Delays (ใช้คู่กับ .anim-fade-up เพื่อเรียงลำดับการ์ดขึ้นมาทีละใบ) */
+.stagger-1 { animation-delay: 40ms; }
+.stagger-2 { animation-delay: 90ms; }
+.stagger-3 { animation-delay: 140ms; }
+.stagger-4 { animation-delay: 190ms; }
+.stagger-5 { animation-delay: 240ms; }
+.stagger-6 { animation-delay: 290ms; }
+
+/* 4. Interactive Hover & Active Micro-Interactions */
+.hover-lift {
+  transition: transform var(--dur-fast) var(--ease-out-expo),
+              box-shadow var(--dur-fast) var(--ease-out-expo),
+              border-color var(--dur-fast) var(--ease-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -8px rgba(13, 28, 54, 0.10);
+}
+
+.btn-press {
+  transition: transform 120ms var(--ease-smooth),
+              background-color var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth),
+              color var(--dur-fast) var(--ease-smooth);
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* 5. Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .anim-page,
+  .anim-fade-up,
+  .anim-fade-in,
+  .anim-modal-panel,
+  .anim-slide-right,
+  .anim-accordion,
+  .anim-float,
+  .anim-pulse-soft,
+  .animate-bounce {
+    animation: none !important;
+  }
+  .hover-lift:hover {
+    transform: none !important;
+  }
+}
+

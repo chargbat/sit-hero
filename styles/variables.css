@@ -1,0 +1,36 @@
+/* ==========================================================================
+   SIT Hero (IT Hero) — Design Tokens & CSS Variables
+   ========================================================================== */
+
+:root {
+  /* Brand Colors */
+  --navy: #0D1C36;       /* Navbar, headings, modal titles */
+  --steel: #2C4966;      /* Primary buttons, active tabs, folders */
+  --ocean: #5A8FA3;      /* Icons, focus rings, highlights */
+  --mint: #D8F3E5;       /* Tags, course badges, alerts */
+  --ice: #F6F9FA;        /* Page canvas background */
+  --line: #E2ECEF;       /* Card & input borders */
+  --muted: #51627A;      /* Secondary text */
+  --danger: #B4413A;     /* Delete & destructive actions */
+  --stage: #E6EDF0;      /* Outer device stage background */
+
+  /* KMUTT & Accent Colors */
+  --kmutt-orange: #F26522;       /* KMUTT identity orange for badges & highlights */
+  --kmutt-orange-light: #FFF3EB; /* Soft orange background */
+  --kmutt-orange-border: #FFD3BD;
+
+  /* Typography */
+  --font-sans: 'Inter', 'IBM Plex Sans Thai', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Mono', ui-monospace, monospace;
+
+  /* Animation Timing & Easing Tokens (ปรับแต่งความเร็วและจังหวะ Animation ได้ที่นี่) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 180ms;
+  --dur-normal: 320ms;
+  --dur-slow: 520ms;
+
+  color-scheme: light;
+}
+
