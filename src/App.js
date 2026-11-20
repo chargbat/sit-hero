@@ -95,12 +95,30 @@
   }
 
   function App() {
-    const [mode, setMode] = useState(function () {
-      return window.innerWidth < 700 ? "mobile" : "desktop";
+    const [winW, setWinW] = useState(function () {
+      return window.innerWidth;
     });
+    const [mode, setMode] = useState("full");
     const [fit, setFit] = useState(true);
     const [avail, setAvail] = useState(1200);
     const stage = useRef(null);
+
+    useEffect(function () {
+      document.body.classList.toggle("full-stage", mode === "full");
+      return function () {
+        document.body.classList.remove("full-stage");
+      };
+    }, [mode]);
+
+    useEffect(function () {
+      function onResize() {
+        setWinW(window.innerWidth);
+      }
+      window.addEventListener("resize", onResize);
+      return function () {
+        window.removeEventListener("resize", onResize);
+      };
+    }, []);
 
     useEffect(function () {
       const el = stage.current;
@@ -120,7 +138,26 @@
       return function () {
         ro.disconnect();
       };
-    }, []);
+    }, [mode]);
+
+    if (mode === "full") {
+      return h(
+        "div",
+        { className: "min-h-screen w-full bg-ice" },
+        h(Prototype, { mobile: winW < 768 }),
+        h(
+          "button",
+          {
+            type: "button",
+            onClick: function () {
+              setMode(winW < 700 ? "mobile" : "desktop");
+            },
+            className: "btn-press fixed bottom-4 right-4 z-40 inline-flex min-h-[40px] items-center gap-2 rounded-full border border-[#C9D8DE] bg-white/95 px-3.5 text-[12px] font-semibold text-[#0D1C36] shadow-md backdrop-blur hover:bg-[#F6F9FA]"
+          },
+          "Prototype Frame"
+        )
+      );
+    }
 
     const mobile = mode === "mobile";
     const W = mobile ? 390 : 1440;
@@ -187,8 +224,8 @@
               "button",
               {
                 type: "button",
-                "aria-pressed": !mobile,
-                className: seg(!mobile),
+                "aria-pressed": mode === "desktop",
+                className: seg(mode === "desktop"),
                 onClick: function () {
                   setMode("desktop");
                 }
@@ -199,13 +236,25 @@
               "button",
               {
                 type: "button",
-                "aria-pressed": mobile,
-                className: cx(seg(mobile), "border-l border-[#C9D8DE]"),
+                "aria-pressed": mode === "mobile",
+                className: cx(seg(mode === "mobile"), "border-l border-[#C9D8DE]"),
                 onClick: function () {
                   setMode("mobile");
                 }
               },
               "Mobile 390"
+            ),
+            h(
+              "button",
+              {
+                type: "button",
+                "aria-pressed": mode === "full",
+                className: cx(seg(mode === "full"), "border-l border-[#C9D8DE]"),
+                onClick: function () {
+                  setMode("full");
+                }
+              },
+              "Full Screen"
             )
           ),
           h(

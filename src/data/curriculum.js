@@ -1491,10 +1491,14 @@ window.ITHeroData.coursesFor = function coursesFor(year, term, track, categoryFi
     };
 
     const isElective = isElectiveSem && (!commonSet.has(code) || code === "รายวิชาหมวด 2.2");
+    let displayName = info.name;
+    if (code === "XXX xxx") {
+      displayName = key === "3-1" ? "Free Elective I" : "Free Elective II";
+    }
 
     return {
       code: info.code,
-      name: info.name,
+      name: displayName,
       credits: info.credits,
       creditDetail: info.creditDetail,
       category: isElective ? "elective" : info.category,

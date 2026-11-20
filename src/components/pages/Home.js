@@ -8,7 +8,7 @@ window.ITHeroPages = window.ITHeroPages || {};
   const h = React.createElement;
   const { cx, useApp } = window.ITHeroUtils;
   const { Icon } = window.ITHeroIcons;
-  const { Page } = window.ITHeroCommon;
+  const { Page, BrandLogo } = window.ITHeroCommon;
 
   const FEATURES = [
     [
@@ -68,7 +68,7 @@ window.ITHeroPages = window.ITHeroPages || {};
               ),
               h(
                 "span",
-                { className: "t-cap rounded-full bg-brandOrangeLight border border-brandOrangeBorder px-2.5 py-1 text-[11px] font-bold text-brandOrange" },
+                { className: "t-cap rounded-full bg-brandOrangeLight border border-brandOrangeBorder px-3 py-1 text-[12px] font-bold text-brandOrange" },
                 "หลักสูตรทางการ 2567"
               )
             ),
@@ -100,7 +100,10 @@ window.ITHeroPages = window.ITHeroPages || {};
                 {
                   type: "button",
                   onClick: function () { go("course"); },
-                  className: "ml-auto rounded-xl bg-steel px-4 py-2.5 text-[14px] font-semibold text-white shadow-sm transition-all hover:bg-navy flex items-center gap-2"
+                  className: cx(
+                    "btn-press min-h-[44px] rounded-xl bg-brandOrange px-5 py-2.5 text-[14px] font-semibold text-white shadow-sm transition-all hover:opacity-95 flex items-center justify-center gap-2",
+                    mobile ? "w-full mt-1" : "ml-auto"
+                  )
                 },
                 "เริ่มดูแผนการเรียน ",
                 h(Icon, { n: "arrowRight", size: 16 })
@@ -109,15 +112,12 @@ window.ITHeroPages = window.ITHeroPages || {};
           ),
           h(
             "div",
-            { className: "shrink-0" },
-            h("img", {
-              src: "assets/logo.png",
-              alt: "SIT Hero Emblem",
-              className: cx(
-                "anim-float rounded-2xl border border-line bg-ice p-2 object-contain shadow-sm",
-                mobile ? "h-24 w-auto" : "h-36 w-auto"
-              )
-            })
+            { className: cx("shrink-0", mobile && "self-center pt-2") },
+            h(
+              "div",
+              { className: "anim-float" },
+              h(BrandLogo, { size: mobile ? 104 : 148, variant: "hero" })
+            )
           )
         )
       ),

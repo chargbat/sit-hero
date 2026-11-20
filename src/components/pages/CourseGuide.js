@@ -58,9 +58,9 @@ window.ITHeroPages = window.ITHeroPages || {};
         h(
           "div",
           { className: "flex flex-wrap items-center gap-2" },
-          h("span", { className: "rounded-md bg-navy px-2 py-0.5 font-mono text-[11px] font-bold text-mint" }, "OFFICIAL"),
+          h("span", { className: "rounded-md bg-navy px-2.5 py-0.5 font-mono text-[12px] font-bold text-mint" }, "OFFICIAL"),
           h("span", { className: "text-navy font-medium" }, "อ้างอิงหลักสูตร วท.บ. เทคโนโลยีสารสนเทศ (128 หน่วยกิต · ค่าเล่าเรียนเฉลี่ย 45,100 บ./เทอม)"),
-          h("span", { className: "rounded-full bg-brandOrangeLight text-brandOrange border border-brandOrangeBorder px-2 py-0.5 text-[11px] font-semibold" }, "พ.ศ. 2567")
+          h("span", { className: "rounded-full bg-brandOrangeLight text-brandOrange border border-brandOrangeBorder px-2.5 py-0.5 text-[12px] font-semibold" }, "พ.ศ. 2567")
         ),
         h(
           "a",
@@ -68,7 +68,7 @@ window.ITHeroPages = window.ITHeroPages || {};
             href: "https://www.sit.kmutt.ac.th/bsc/bsc-it-2/",
             target: "_blank",
             rel: "noreferrer",
-            className: "font-semibold text-ocean hover:underline inline-flex items-center gap-1 ml-auto"
+            className: "btn-press inline-flex min-h-[40px] items-center gap-1 rounded-lg bg-ice px-3 py-1.5 font-semibold text-steel transition-colors hover:bg-mint/70 hover:text-navy ml-auto"
           },
           "ตรวจดูบนเว็บ SIT ↗"
         )
@@ -92,7 +92,7 @@ window.ITHeroPages = window.ITHeroPages || {};
               { className: "flex flex-wrap items-center gap-2" },
               h(
                 "span",
-                { className: "rounded-full bg-navy px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-mint" },
+                { className: "rounded-full bg-navy px-2.5 py-0.5 text-[12px] font-semibold uppercase tracking-wider text-mint" },
                 "Professor Jiewliew"
               ),
               h("p", { className: "font-semibold text-[16px]" }, "“From Year 2, Semester 2 onward, you can choose your Career Track electives!”")
@@ -136,7 +136,7 @@ window.ITHeroPages = window.ITHeroPages || {};
                 },
                 className: cx(
                   btnBase,
-                  "!min-h-[38px] !px-4 !text-[14px]",
+                  "!min-h-[44px] !px-4 !text-[14px]",
                   active ? "bg-steel text-white shadow-sm" : "border border-line bg-white text-navy hover:border-ocean"
                 )
               },
@@ -164,7 +164,7 @@ window.ITHeroPages = window.ITHeroPages || {};
                 },
                 className: cx(
                   btnBase,
-                  "!min-h-[38px] !px-3.5 !text-[13px]",
+                  "!min-h-[44px] !px-4 !text-[13px]",
                   active ? "bg-navy text-white" : "border border-line bg-white text-muted hover:text-navy"
                 )
               },
@@ -222,9 +222,10 @@ window.ITHeroPages = window.ITHeroPages || {};
             onChange: setTrack,
             hint: electiveOn ? "เลือกสายอาชีพเพื่อดูวิชาเลือกประจำเทอม" : "เปิดให้เลือกสายตั้งแต่ ปี 2 เทอม 2 ขึ้นไป"
           },
-          h("option", { value: "" }, electiveOn ? "เลือกสายอาชีพ (All / Core only)" : "ยังไม่ต้องเลือกสายในเทอมนี้"),
+          h("option", { value: "" }, electiveOn ? "เลือกสายอาชีพ (Core only)" : "ยังไม่ต้องเลือกสายในเทอมนี้"),
           TRACKS.map(function ([k, n, desc]) {
-            return h("option", { key: k, value: k }, n + (desc ? " — " + desc : ""));
+            const m = desc && desc.match(/\(([^)]+)\)/);
+            return h("option", { key: k, value: k }, m ? n + " (" + m[1] + ")" : n);
           })
         )
       ),
@@ -272,34 +273,70 @@ window.ITHeroPages = window.ITHeroPages || {};
                   setOpen(Object.assign({}, open, { [c.code]: !isOpen }));
                 },
                 className: cx(
-                  "flex min-h-[64px] w-full items-center gap-3 px-5 py-3 text-left transition-colors",
+                  "flex min-h-[64px] w-full text-left transition-colors",
+                  mobile ? "flex-col gap-2 px-4 py-3.5" : "items-center gap-3 px-5 py-3",
                   isOpen ? "bg-mint/60" : "hover:bg-ice"
                 )
               },
-              h(CourseBadge, { code: c.code }),
-              h("span", { className: "min-w-0 flex-1 text-[17px] font-semibold text-navy" }, c.name),
-              c.category === "gened" &&
-                h(
-                  "span",
-                  {
-                    className: "hidden rounded-full bg-ice border border-line px-2.5 py-0.5 text-[12px] font-medium text-muted sm:inline-flex"
-                  },
-                  "General Subject"
-                ),
-              c.elective &&
-                h(
-                  "span",
-                  {
-                    className: "hidden rounded-full border border-ocean bg-white px-2.5 py-0.5 text-[12px] font-semibold text-steel sm:inline-flex"
-                  },
-                  "Track Elective"
-                ),
-              h(
-                "span",
-                { className: "hidden font-mono text-[13px] font-medium text-muted md:inline-block" },
-                c.creditDetail
-              ),
-              h(Icon, { n: isOpen ? "chevUp" : "chevDown", size: 22, className: "text-ocean" })
+              mobile
+                ? [
+                    h(
+                      "div",
+                      { key: "top", className: "flex w-full items-center gap-2" },
+                      h(CourseBadge, { code: c.code }),
+                      c.category === "gened" &&
+                        h(
+                          "span",
+                          { className: "rounded-full bg-ice border border-line px-2 py-0.5 text-[12px] font-medium text-muted" },
+                          "GenEd"
+                        ),
+                      c.elective &&
+                        h(
+                          "span",
+                          { className: "rounded-full border border-ocean bg-white px-2 py-0.5 text-[12px] font-semibold text-steel" },
+                          "Track"
+                        ),
+                      h(
+                        "span",
+                        { className: "ml-auto font-mono text-[12px] font-medium text-muted shrink-0" },
+                        c.creditDetail
+                      ),
+                      h(Icon, { n: isOpen ? "chevUp" : "chevDown", size: 20, className: "text-ocean" })
+                    ),
+                    h(
+                      "span",
+                      { key: "title", className: "w-full text-[16px] font-semibold leading-snug text-navy" },
+                      c.name
+                    )
+                  ]
+                : [
+                    h(CourseBadge, { key: "code", code: c.code }),
+                    h("span", { key: "name", className: "min-w-0 flex-1 text-[17px] font-semibold text-navy" }, c.name),
+                    c.category === "gened" &&
+                      h(
+                        "span",
+                        {
+                          key: "gened",
+                          className: "inline-flex shrink-0 rounded-full bg-ice border border-line px-2.5 py-0.5 text-[12px] font-medium text-muted"
+                        },
+                        "General Subject"
+                      ),
+                    c.elective &&
+                      h(
+                        "span",
+                        {
+                          key: "track",
+                          className: "inline-flex shrink-0 rounded-full border border-ocean bg-white px-2.5 py-0.5 text-[12px] font-semibold text-steel"
+                        },
+                        "Track Elective"
+                      ),
+                    h(
+                      "span",
+                      { key: "cred", className: "shrink-0 font-mono text-[13px] font-medium text-muted" },
+                      c.creditDetail
+                    ),
+                    h(Icon, { key: "chev", n: isOpen ? "chevUp" : "chevDown", size: 22, className: "text-ocean" })
+                  ]
             ),
             isOpen &&
               h(

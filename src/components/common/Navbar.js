@@ -10,9 +10,10 @@ window.ITHeroCommon = window.ITHeroCommon || {};
   const { useState } = React;
   const { cx, useApp } = window.ITHeroUtils;
   const { Icon } = window.ITHeroIcons;
-  const { ProfilePhoto } = window.ITHeroCommon;
+  const { ProfilePhoto, BrandLogo } = window.ITHeroCommon;
 
   const NAV = [
+    ["home", "Home"],
     ["course", "Course Guide"],
     ["community", "Community"],
     ["knowledge", "Knowledge"],
@@ -22,7 +23,6 @@ window.ITHeroCommon = window.ITHeroCommon || {};
   function Navbar() {
     const { mobile, go, route, openUser } = useApp();
     const [open, setOpen] = useState(false);
-    const [logoErr, setLogoErr] = useState(false);
 
     const brand = h(
       "button",
@@ -32,24 +32,16 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           setOpen(false);
           go("home");
         },
-        className: "btn-press flex min-h-[44px] items-center gap-2.5 rounded-lg text-white",
-        "aria-label": "SIT Hero, go to Introduction"
+        className: "btn-press flex min-h-[44px] items-center gap-2.5 rounded-xl px-1.5 text-white transition-colors hover:bg-white/5",
+        "aria-label": "SIT Hero, go to Home"
       },
-      !logoErr
-        ? h("img", {
-            src: "assets/logo.png",
-            alt: "SIT Hero Logo",
-            onError: function () {
-              setLogoErr(true);
-            },
-            className: "h-10 w-auto rounded-lg bg-white/95 p-0.5 object-contain shadow-sm"
-          })
-        : h(
-            "span",
-            { className: "flex h-9 w-9 items-center justify-center rounded-xl bg-mint text-navy" },
-            h(Icon, { n: "shield", size: 22, sw: 2 })
-          ),
-      h("span", { className: "text-[22px] font-bold tracking-tight" }, "SIT Hero")
+      h(BrandLogo, { size: 38, variant: "nav" }),
+      h(
+        "span",
+        { className: "flex flex-col items-start leading-none" },
+        h("span", { className: "text-[20px] font-bold tracking-tight" }, "SIT Hero"),
+        !mobile && h("span", { className: "mt-0.5 text-[12px] font-medium text-mint/80" }, "KMUTT · B.Sc. IT")
+      )
     );
 
     const avatarBtn = h(

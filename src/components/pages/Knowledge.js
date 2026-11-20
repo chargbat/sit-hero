@@ -15,11 +15,29 @@ window.ITHeroPages = window.ITHeroPages || {};
 
   function NoteCard({ n, index, onOpen, onToggleSave, onDelete }) {
     const mine = n.by === ME;
+    const yearAccent =
+      n.year === 1
+        ? n.term === 1
+          ? "border-t-emerald-400"
+          : "border-t-sky-400"
+        : n.year === 2
+          ? "border-t-indigo-400"
+          : "border-t-brandOrange";
+    const yearBadgeCls =
+      n.year === 1
+        ? n.term === 1
+          ? "bg-mint text-navy"
+          : "bg-sky-100 text-sky-900"
+        : n.year === 2
+          ? "bg-indigo-100 text-indigo-900"
+          : "bg-brandOrangeLight text-brandOrange";
+
     return h(
       "article",
       {
         className: cx(
-          "anim-fade-up hover-lift flex flex-col justify-between gap-4 rounded-xl border border-line bg-white p-5 transition-colors hover:border-ocean",
+          "anim-fade-up hover-lift flex flex-col justify-between gap-4 rounded-xl border border-line border-t-[3px] bg-white p-5 transition-colors hover:border-ocean",
+          yearAccent,
           "stagger-" + ((index % 6) + 1)
         )
       },
@@ -76,7 +94,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         { className: "flex items-center justify-between border-t border-line pt-3 text-[13px] text-muted" },
         h(
           "span",
-          { className: "rounded-md bg-ice px-2.5 py-1 font-mono font-semibold text-navy" },
+          { className: cx("rounded-md px-2.5 py-1 font-mono text-[12px] font-semibold", yearBadgeCls) },
           termTag(n.year, n.term)
         ),
         h(
@@ -84,7 +102,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           {
             type: "button",
             onClick: onOpen,
-            className: "inline-flex items-center gap-1 font-medium text-steel hover:underline"
+            className: "btn-press inline-flex min-h-[40px] items-center gap-1.5 rounded-lg bg-ice px-3 py-1.5 font-medium text-steel transition-colors hover:bg-mint/70 hover:text-navy"
           },
           h(Icon, { n: "file", size: 15 }),
           n.pages || 8,

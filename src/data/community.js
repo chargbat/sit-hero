@@ -107,8 +107,8 @@ window.ITHeroData.SEED_POSTS = [
     mins: 1440,
     likes: 42,
     liked: false,
-    title: "รวมเช็กลิสต์เตรียมพอร์ตยื่นฝึกงาน / สหกิจศึกษา (INT371) สาย Software & Data",
-    body: "สรุปจากที่ได้เข้าฟังวิชาเตรียมความพร้อม INT340 ครับ: 1) ทำโปรเจกต์ในวิชา Integrated Project (INT222) และ Capstone (INT365) ให้ขึ้น README บน GitHub สวยๆ 2) ฝึกโจทย์ SQL (INT190/INT290) และ Data Structures (INT241) 3) เตรียมเล่าบทบาทของเราในทีมให้ชัดเจน",
+    title: "รวมเช็กลิสต์เตรียมพอร์ตยื่นฝึกงาน / สหกิจศึกษา (INT509) สาย Software & Data",
+    body: "สรุปจากที่ได้เข้าฟังวิชาเตรียมความพร้อมวิชาชีพ INT115 ครับ: 1) ทำโปรเจกต์ในวิชา Integrated Project (INT504) และ Capstone (INT505/INT506) ให้ขึ้น README บน GitHub สวยๆ 2) ฝึกโจทย์ SQL (INT190/INT290) และ Data Structures (INT241) 3) เตรียมเล่าบทบาทของเราในทีมให้ชัดเจน",
     tags: ["Internship", "CareerTrack", "INT241", "Database"],
     comments: []
   }

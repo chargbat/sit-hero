@@ -22,10 +22,10 @@ window.ITHeroPages = window.ITHeroPages || {};
   };
 
   const TOPICS = [
-    ["general", "General Question"],
-    ["useful", "the most useful question"],
-    ["admin", "Contract to Admin"],
-    ["nav", "Navigator"]
+    ["general", "General Question (คำถามทั่วไป)"],
+    ["useful", "Most Useful Questions (คำถามยอดนิยม)"],
+    ["admin", "Contact Admin (ติดต่อแอดมิน)"],
+    ["nav", "Navigator (นำทางไปยังหน้าต่างๆ)"]
   ];
 
   function BotAvatar({ size = 36 }) {
@@ -83,7 +83,7 @@ window.ITHeroPages = window.ITHeroPages || {};
 
     useEffect(
       function () {
-        if (box.current) {
+        if (box.current && (msgs.length > 1 || typing)) {
           box.current.scrollTop = box.current.scrollHeight;
         }
       },
@@ -182,7 +182,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       Page,
       null,
       h(PageHeader, {
-        title: "Auto Bot",
+        title: "Autobot",
         sub: "Welcome to SIT Hero Chatbot · ผู้ช่วยอัจฉริยะตอบคำถามทันใจ"
       }),
       h(
@@ -200,7 +200,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           h("h2", { className: "mb-3 text-[18px] font-semibold text-navy" }, "Top Questions (คำถามยอดฮิต)"),
           h(
             "div",
-            { className: cx("flex gap-3", mobile ? "overflow-x-auto pb-1" : "flex-col") },
+            { className: cx("flex flex-col gap-2.5") },
             TOP_QUESTIONS.map(function (t, i) {
               return h(
                 "button",
@@ -210,13 +210,10 @@ window.ITHeroPages = window.ITHeroPages || {};
                   onClick: function () {
                     send(t, i);
                   },
-                  className: cx(
-                    "btn-press hover-lift flex min-h-[56px] items-center gap-3 rounded-xl border border-line bg-ice px-4 py-3 text-left text-[15px] text-navy transition-colors hover:border-ocean hover:bg-mint/50",
-                    mobile && "w-[240px] shrink-0"
-                  )
+                  className: "btn-press hover-lift flex min-h-[48px] w-full items-center gap-3 rounded-xl border border-line bg-ice px-4 py-2.5 text-left text-[14px] text-navy transition-colors hover:border-ocean hover:bg-mint/50"
                 },
-                h("span", { className: "font-mono text-[13px] font-semibold text-ocean" }, "#" + (i + 1)),
-                h("span", { className: "flex-1" }, t)
+                h("span", { className: "font-mono text-[13px] font-semibold text-ocean shrink-0" }, "#" + (i + 1)),
+                h("span", { className: "flex-1 leading-snug" }, t)
               );
             })
           )
@@ -365,7 +362,7 @@ window.ITHeroPages = window.ITHeroPages || {};
               onKeyDown: function (e) {
                 if (e.key === "Enter") submit();
               },
-              placeholder: "select a question… or type a message (เช่น กินไรดี, INT101, เลือกสาย)",
+              placeholder: "พิมพ์คำถามหรือรหัสวิชา เช่น INT101, เลือกสายอาชีพ, ฝึกงาน, ค่าเทอม...",
               "aria-label": "Message to Autobot",
               className: inputCls
             }),

@@ -172,6 +172,95 @@ window.ITHeroCommon = window.ITHeroCommon || {};
     );
   }
 
+  /* โลโก้ Vector SVG ของ SIT Hero (ทรงหลังคา IT + ผ้าคลุมฮีโร่ พื้นโปร่งใส/กลืนธีม) */
+  function BrandLogo({ size = 40, variant = "nav" }) {
+    const isHero = variant === "hero";
+    const gradId = isHero ? "sithero-grad-hero" : "sithero-grad-nav";
+    const bgId = isHero ? "sithero-bg-hero" : "sithero-bg-nav";
+
+    return h(
+      "span",
+      {
+        className: cx(
+          "inline-flex shrink-0 items-center justify-center overflow-hidden select-none",
+          isHero
+            ? "rounded-3xl shadow-md ring-1 ring-ocean/30"
+            : "rounded-xl ring-1 ring-white/15"
+        ),
+        style: { width: size, height: size }
+      },
+      h(
+        "svg",
+        {
+          width: size,
+          height: size,
+          viewBox: "0 0 64 64",
+          fill: "none",
+          role: "img",
+          "aria-label": "SIT Hero Logo"
+        },
+        h(
+          "defs",
+          null,
+          h(
+            "linearGradient",
+            { id: bgId, x1: "0", y1: "0", x2: "64", y2: "64", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: isHero ? "#0D1C36" : "#162C4E" }),
+            h("stop", { offset: "100%", stopColor: isHero ? "#1E3B63" : "#244369" })
+          ),
+          h(
+            "linearGradient",
+            { id: gradId, x1: "14", y1: "12", x2: "50", y2: "52", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: "#38BDF8" }),
+            h("stop", { offset: "100%", stopColor: "#7DD3FC" })
+          )
+        ),
+        h("rect", { width: "64", height: "64", rx: isHero ? "16" : "14", fill: "url(#" + bgId + ")" }),
+        /* ผ้าคลุมฮีโร่ซ้าย-ขวา */
+        h("path", {
+          d: "M19 28 C16.5 36, 12.5 41.5, 8 44.5 C13.5 43.5, 18 39, 20.5 32 Z",
+          fill: "#D8F3E5",
+          opacity: "0.9"
+        }),
+        h("path", {
+          d: "M45 28 C47.5 36, 51.5 41.5, 56 44.5 C50.5 43.5, 46 39, 43.5 32 Z",
+          fill: "#D8F3E5",
+          opacity: "0.9"
+        }),
+        /* หลังคาตัว T/บ้าน IT */
+        h("path", {
+          d: "M15 24 L32 14 L49 24",
+          stroke: "url(#" + gradId + ")",
+          strokeWidth: "4.6",
+          strokeLinecap: "round",
+          strokeLinejoin: "round"
+        }),
+        /* เสาสองต้นเป็นตัว I และ T */
+        h("rect", { x: "23.5", y: "22", width: "4.8", height: "21", rx: "2.2", fill: "url(#" + gradId + ")" }),
+        h("rect", { x: "19", y: "39", width: "13.8", height: "4.4", rx: "2.2", fill: "url(#" + gradId + ")" }),
+        h("rect", { x: "35.7", y: "22", width: "4.8", height: "21.4", rx: "2.2", fill: "url(#" + gradId + ")" }),
+        /* จุดเน้นสีส้ม KMUTT ที่ยอดหลังคา */
+        h("circle", { cx: "32", cy: "14", r: "2.6", fill: "#F26522" }),
+        /* คำว่า HERO ด้านล่างสำหรับขนาดใหญ่ */
+        isHero &&
+          h(
+            "text",
+            {
+              x: "32",
+              y: "55",
+              textAnchor: "middle",
+              fill: "#D8F3E5",
+              fontSize: "9",
+              fontWeight: "700",
+              letterSpacing: "2.2",
+              fontFamily: "Inter, system-ui, sans-serif"
+            },
+            "HERO"
+          )
+      )
+    );
+  }
+
   function Page({ children }) {
     const { mobile } = useApp();
     return h(
@@ -182,16 +271,41 @@ window.ITHeroCommon = window.ITHeroCommon || {};
   }
 
   function PageHeader({ title, sub, right }) {
+    const { route, go } = useApp();
     return h(
       "div",
-      { className: "mb-6 flex flex-wrap items-end justify-between gap-4" },
+      { className: "mb-6 flex flex-col gap-2" },
+      route &&
+        route !== "home" &&
+        h(
+          "nav",
+          { "aria-label": "Breadcrumb", className: "flex items-center gap-1.5 text-[13px] text-muted" },
+          h(
+            "button",
+            {
+              type: "button",
+              onClick: function () {
+                go("home");
+              },
+              className: "btn-press -ml-2 inline-flex min-h-[40px] items-center gap-1.5 rounded-lg px-2 font-medium text-steel transition-colors hover:bg-mint/60 hover:text-navy"
+            },
+            h(Icon, { n: "arrowLeft", size: 15 }),
+            "Home"
+          ),
+          h("span", { "aria-hidden": "true", className: "text-muted/60" }, "/"),
+          h("span", { className: "font-medium text-navy/80" }, title)
+        ),
       h(
         "div",
-        null,
-        sub && h("p", { className: "t-cap mb-1 font-semibold uppercase tracking-[0.1em] text-ocean" }, sub),
-        h("h1", { className: "t-h2 text-navy" }, title)
-      ),
-      right
+        { className: "flex flex-wrap items-end justify-between gap-4" },
+        h(
+          "div",
+          null,
+          sub && h("p", { className: "t-cap mb-1 font-semibold uppercase tracking-[0.1em] text-ocean" }, sub),
+          h("h1", { className: "t-h2 text-navy" }, title)
+        ),
+        right
+      )
     );
   }
 
@@ -199,6 +313,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
     Avatar: Avatar,
     ProfilePhoto: ProfilePhoto,
     ProfessorAvatar: ProfessorAvatar,
+    BrandLogo: BrandLogo,
     Tag: Tag,
     CourseBadge: CourseBadge,
     Select: Select,
