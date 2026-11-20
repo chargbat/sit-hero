@@ -117,62 +117,34 @@ window.ITHeroPages = window.ITHeroPages || {};
           )
         ),
 
-      /* แถบปุ่มลัดเลือกชั้นปี ปี 1 - ปี 4 แบบรวดเร็ว (ตามหน้า 6-8 ของ PDF) + ตัวกรองหมวดวิชา (General Subject / Core IT) */
+      /* ตัวกรองหมวดวิชา (All Subjects / IT Core & Track / General Subject) */
       h(
         "div",
-        { className: "mb-4 flex flex-wrap items-center justify-between gap-3" },
-        h(
-          "div",
-          { className: "flex flex-wrap items-center gap-2", role: "group", "aria-label": "Quick Year Select" },
-          [1, 2, 3, 4].map(function (y) {
-            const active = year === y;
-            return h(
-              "button",
-              {
-                key: y,
-                type: "button",
-                onClick: function () {
-                  setYear(y);
-                },
-                className: cx(
-                  btnBase,
-                  "!min-h-[44px] !px-4 !text-[14px]",
-                  active ? "bg-steel text-white shadow-sm" : "border border-line bg-white text-navy hover:border-ocean"
-                )
+        { className: "mb-4 flex flex-wrap items-center justify-end gap-2", role: "group", "aria-label": "Subject Category Filter" },
+        [
+          ["all", "All Subjects"],
+          ["core", "IT Core & Track"],
+          ["gened", "General Subject (GenEd)"]
+        ].map(function ([k, label]) {
+          const active = categoryFilter === k;
+          return h(
+            "button",
+            {
+              key: k,
+              type: "button",
+              onClick: function () {
+                setCategoryFilter(k);
               },
-              "ปี ",
-              y
-            );
-          })
-        ),
-        h(
-          "div",
-          { className: "flex flex-wrap items-center gap-2", role: "group", "aria-label": "Subject Category Filter" },
-          [
-            ["all", "All Subjects"],
-            ["core", "IT Core & Track"],
-            ["gened", "General Subject (GenEd)"]
-          ].map(function ([k, label]) {
-            const active = categoryFilter === k;
-            return h(
-              "button",
-              {
-                key: k,
-                type: "button",
-                onClick: function () {
-                  setCategoryFilter(k);
-                },
-                className: cx(
-                  btnBase,
-                  "!min-h-[44px] !px-4 !text-[13px]",
-                  active ? "bg-navy text-white" : "border border-line bg-white text-muted hover:text-navy"
-                )
-              },
-              h(Icon, { n: "filter", size: 14 }),
-              label
-            );
-          })
-        )
+              className: cx(
+                btnBase,
+                "!min-h-[44px] !px-4 !text-[13px]",
+                active ? "bg-navy text-white" : "border border-line bg-white text-muted hover:text-navy"
+              )
+            },
+            h(Icon, { n: "filter", size: 14 }),
+            label
+          );
+        })
       ),
 
       /* Dropdowns: Select Year, Select Term, Select Track (ตามหน้า 9-12 ของ PDF) */
