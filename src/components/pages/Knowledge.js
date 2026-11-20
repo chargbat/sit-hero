@@ -74,7 +74,12 @@ window.ITHeroPages = window.ITHeroPages || {};
                   n.saved ? "!text-steel bg-mint/50" : "text-muted hover:text-navy"
                 )
               },
-              h(Icon, { n: "bookmark", size: 19, fill: n.saved ? "currentColor" : "none" })
+              h(Icon, {
+                n: "bookmark",
+                size: 19,
+                fill: n.saved ? "currentColor" : "none",
+                className: n.saved ? "anim-pop" : ""
+              })
             )
           )
         ),
@@ -86,7 +91,7 @@ window.ITHeroPages = window.ITHeroPages || {};
             { className: "t-h3 text-navy group-hover:text-steel transition-colors" },
             n.title
           ),
-          h("p", { className: "mt-1 text-[14px] text-muted" }, "Shared by ", n.by)
+          h("p", { className: "mt-1 text-[14px] text-muted" }, "โดย ", n.by)
         )
       ),
       h(
@@ -106,7 +111,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           },
           h(Icon, { n: "file", size: 15 }),
           n.pages || 8,
-          " pages · Preview"
+          " หน้า · อ่านพรีวิว"
         )
       )
     );
@@ -117,7 +122,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       "div",
       {
         className: cx(
-          "anim-fade-up hover-lift relative flex flex-col justify-between rounded-xl border border-line bg-white p-5 transition-colors hover:border-ocean",
+          "anim-fade-up hover-lift group relative flex flex-col justify-between rounded-xl border border-line border-t-[3px] border-t-ocean bg-white p-5 transition-colors hover:border-ocean",
           "stagger-" + ((index % 6) + 1)
         )
       },
@@ -129,7 +134,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           {
             type: "button",
             onClick: onOpen,
-            className: "flex h-12 w-12 items-center justify-center rounded-xl bg-mint text-steel"
+            className: "flex h-12 w-12 items-center justify-center rounded-xl bg-mint text-steel transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 group-hover:bg-steel group-hover:text-white group-hover:shadow-sm"
           },
           h(Icon, { n: "folder", size: 26 })
         ),
@@ -243,7 +248,10 @@ window.ITHeroPages = window.ITHeroPages || {};
         { className: "flex-1 overflow-y-auto bg-ice p-6" },
         h(
           "div",
-          { className: "mx-auto max-w-[620px] rounded-xl border border-line bg-white p-8 shadow-sm" },
+          {
+            key: page,
+            className: "anim-sheet-turn mx-auto max-w-[620px] rounded-xl border border-line bg-white p-8 shadow-sm"
+          },
           h(
             "div",
             { className: "flex items-center justify-between border-b border-line pb-4" },
@@ -513,7 +521,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         });
       });
       if (target) {
-        toast(target.saved ? "Removed from My Saved" : "Saved to " + target.code + " folder");
+        toast(target.saved ? "นำออกจากที่บันทึกไว้แล้ว" : "บันทึกเข้าโฟลเดอร์ " + target.code + " แล้ว");
       }
     }
 
@@ -524,7 +532,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         });
       });
       setMenu(null);
-      toast("Removed all saved notes in " + code);
+      toast("นำชีททั้งหมดในโฟลเดอร์ " + code + " ออกแล้ว");
     }
 
     function upload({ code, title, year: y, term: t }) {
@@ -570,7 +578,10 @@ window.ITHeroPages = window.ITHeroPages || {};
     function renderCards(arr) {
       return h(
         "div",
-        { className: cx("grid gap-4", mobile ? "grid-cols-1" : "grid-cols-3") },
+        {
+          key: tab + "-" + year + "-" + term + "-" + (folder || ""),
+          className: cx("grid gap-4", mobile ? "grid-cols-1" : "grid-cols-3")
+        },
         arr.map(function (n, idx) {
           return h(NoteCard, {
             key: n.id,

@@ -24,13 +24,20 @@
     const [userOpen, setUserOpen] = useState(false);
 
     /* เก็บข้อมูลลง localStorage เพื่อให้แก้ไขโปรไฟล์ ตั้งกระทู้ หรือกดเซฟชีทแล้วไม่หายเมื่อรีเฟรช */
-    const [profile, setProfile] = usePersistedState("sithero_profile_v1", DEFAULT_PROFILE);
-    const [posts, setPosts] = usePersistedState("sithero_posts_v1", SEED_POSTS);
-    const [notes, setNotes] = usePersistedState("sithero_notes_v1", SEED_NOTES);
+    const [profile, setProfile] = usePersistedState("sithero_profile_v2", DEFAULT_PROFILE);
+    const [posts, setPosts] = usePersistedState("sithero_posts_v2", SEED_POSTS);
+    const [notes, setNotes] = usePersistedState("sithero_notes_v2", SEED_NOTES);
 
     const [toastMsg, setToastMsg] = useState(null);
+    const [scrollPct, setScrollPct] = useState(0);
     const scrollRef = useRef(null);
     const timer = useRef(null);
+
+    function handleScroll(e) {
+      const el = e.currentTarget;
+      const max = el.scrollHeight - el.clientHeight;
+      setScrollPct(max > 0 ? (el.scrollTop / max) * 100 : 0);
+    }
 
     const toast = useCallback(function (m) {
       setToastMsg(m);
@@ -43,6 +50,7 @@
     const go = useCallback(function (r) {
       setRoute(r);
       setUserOpen(false);
+      setScrollPct(0);
       if (scrollRef.current) scrollRef.current.scrollTop = 0;
     }, []);
 
@@ -51,6 +59,7 @@
       route: route,
       go: go,
       toast: toast,
+      scrollPct: scrollPct,
       root: root,
       profile: profile,
       setProfile: setProfile,
@@ -73,15 +82,58 @@
         {
           ref: setRoot,
           className: cx(
-            "relative h-full w-full overflow-hidden bg-ice font-sans text-[16px] leading-[1.6] text-navy",
+            "relative h-full w-full overflow-hidden bg-canvas font-sans text-[16px] leading-[1.6] text-navy",
             mobile && "m"
           )
         },
         h(
           "div",
-          { ref: scrollRef, className: "h-full overflow-y-auto" },
+          { ref: scrollRef, onScroll: handleScroll, className: "flex h-full flex-col overflow-y-auto scroll-smooth" },
           h(Navbar, null),
-          h("main", null, h(Screen, { key: route }))
+          h("main", { className: "flex-1" }, h(Screen, { key: route })),
+          h(
+            "footer",
+            { className: "mt-12 border-t border-line bg-white/80" },
+            h(
+              "div",
+              {
+                className: cx(
+                  "mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-4 text-[13px] text-muted",
+                  mobile ? "px-4 py-6" : "px-10 py-6"
+                )
+              },
+              h(
+                "div",
+                { className: "flex flex-col gap-0.5" },
+                h("span", { className: "font-semibold text-navy" }, "SIT Hero · คู่มือการเรียน วท.บ. เทคโนโลยีสารสนเทศ (มจธ.)"),
+                h("span", null, "อ้างอิงโครงสร้างหลักสูตรปรับปรุง พ.ศ. 2567 · ข้อมูลสำหรับนักศึกษา SIT KMUTT")
+              ),
+              h(
+                "div",
+                { className: "flex flex-wrap items-center gap-2" },
+                h(
+                  "button",
+                  { type: "button", onClick: function () { go("course"); }, className: "inline-flex min-h-[40px] items-center rounded-lg px-2.5 font-medium hover:bg-ice hover:text-navy transition-colors" },
+                  "แผนการเรียน"
+                ),
+                h(
+                  "button",
+                  { type: "button", onClick: function () { go("knowledge"); }, className: "inline-flex min-h-[40px] items-center rounded-lg px-2.5 font-medium hover:bg-ice hover:text-navy transition-colors" },
+                  "คลังชีทสรุป"
+                ),
+                h(
+                  "a",
+                  {
+                    href: "https://www.sit.kmutt.ac.th/bsc/bsc-it-2/",
+                    target: "_blank",
+                    rel: "noreferrer",
+                    className: "inline-flex min-h-[40px] items-center rounded-lg px-2.5 font-medium text-steel hover:bg-ice hover:underline transition-colors"
+                  },
+                  "เว็บไซต์ทางการ SIT ↗"
+                )
+              )
+            )
+          )
         ),
         userOpen &&
           h(UserModal, {
@@ -143,7 +195,7 @@
     if (mode === "full") {
       return h(
         "div",
-        { className: "min-h-screen w-full bg-ice" },
+        { className: "h-screen w-full overflow-hidden bg-ice" },
         h(Prototype, { mobile: winW < 768 }),
         h(
           "button",
@@ -173,9 +225,9 @@
 
     function resetDemoData() {
       try {
-        window.localStorage.removeItem("sithero_profile_v1");
-        window.localStorage.removeItem("sithero_posts_v1");
-        window.localStorage.removeItem("sithero_notes_v1");
+        window.localStorage.removeItem("sithero_profile_v2");
+        window.localStorage.removeItem("sithero_posts_v2");
+        window.localStorage.removeItem("sithero_notes_v2");
       } catch (e) {}
       window.location.reload();
     }

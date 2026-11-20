@@ -58,11 +58,11 @@ function usePersistedState(storageKey, defaultValue) {
 
 /* 3. Reusable Button & Input Classes (พร้อมคลาส .btn-press สำหรับ Animation) */
 const btnBase = "btn-press inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-4 text-[15px] font-medium transition-colors select-none";
-const btnPrimary = cx(btnBase, "bg-steel text-white hover:bg-navy");
+const btnPrimary = cx(btnBase, "cta-sheen bg-steel text-white shadow-sm hover:bg-navy hover:shadow-md");
 const btnGhost = cx(btnBase, "border border-line bg-white text-navy hover:border-ocean hover:bg-ice");
-const btnDanger = cx(btnBase, "bg-danger text-white hover:opacity-95");
+const btnDanger = cx(btnBase, "bg-danger text-white shadow-sm hover:opacity-95");
 const iconBtn = "btn-press inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl text-navy/70 transition-colors hover:bg-ice hover:text-navy";
-const inputCls = "min-h-[44px] w-full rounded-xl border border-line bg-white px-3.5 text-[16px] text-navy placeholder:text-muted/70 focus:border-ocean focus:outline-none transition-colors";
+const inputCls = "min-h-[44px] w-full rounded-xl border border-line bg-white px-3.5 text-[16px] text-navy placeholder:text-muted/70 focus:border-ocean focus:outline-none transition-all duration-200";
 
 /* 4. Global App Context */
 const Ctx = createContext(null);

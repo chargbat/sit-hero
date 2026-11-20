@@ -1,17 +1,32 @@
 /* ==========================================================================
-   SIT Hero (IT Hero) — Animations & Micro-Interactions
-   ไฟล์นี้แยกไว้สำหรับการปรับแต่ง Keyframes, Page Transitions, และ Hover Effects
+   SIT Hero (IT Hero) — High-Craft Interactive Motion & Micro-Interactions
+   เน้นแอนิเมชันที่มองเห็นและสัมผัสได้จริง ลื่นไหล 60fps (GPU-composited)
    ========================================================================== */
 
 /* 1. Keyframes Definitions */
-@keyframes fadeUp {
+@keyframes pageEnter {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(24px) scale(0.988);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
@@ -21,127 +36,365 @@
 }
 
 @keyframes scaleSpring {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0.94) translateY(8px);
+    transform: scale(0.88) translateY(20px);
+    filter: blur(3px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(28px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes sheetTurn {
+  from {
+    opacity: 0;
+    transform: translateX(18px) rotateY(-4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
   }
 }
 
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes ambientDrift {
+  0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.55; }
+  50% { transform: translate(-12px, 8px) scale(1.09); opacity: 0.85; }
 }
 
 @keyframes pulseSoft {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.06); }
 }
 
 @keyframes accordionDown {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-10px) scaleY(0.96);
+    transform-origin: top center;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scaleY(1);
+    transform-origin: top center;
+  }
+}
+
+@keyframes toastPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 24px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes iconPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.42) rotate(-8deg); }
+  70% { transform: scale(0.9) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes ringBurst {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
   }
 }
 
 /* 2. Utility Animation Classes */
 .anim-page {
-  animation: fadeUp var(--dur-normal) var(--ease-out-expo) both;
+  animation: pageEnter 500ms var(--ease-out-expo) both;
 }
 
 .anim-fade-up {
-  animation: fadeUp var(--dur-slow) var(--ease-out-expo) both;
+  animation: fadeUp 620ms var(--ease-out-expo) both;
 }
 
 .anim-fade-in {
-  animation: fadeIn var(--dur-fast) var(--ease-smooth) both;
+  animation: fadeIn 220ms var(--ease-smooth) both;
 }
 
 .anim-modal-panel {
-  animation: scaleSpring var(--dur-normal) var(--ease-spring) both;
+  animation: scaleSpring 420ms var(--ease-spring) both;
 }
 
 .anim-slide-right {
-  animation: slideInRight var(--dur-normal) var(--ease-out-expo) both;
+  animation: slideInRight 380ms var(--ease-out-expo) both;
+}
+
+.anim-sheet-turn {
+  animation: sheetTurn 340ms var(--ease-out-expo) both;
 }
 
 .anim-accordion {
-  animation: accordionDown 240ms var(--ease-out-expo) both;
+  animation: accordionDown 300ms var(--ease-out-expo) both;
 }
 
 .anim-float {
-  animation: floatSlow 3.2s ease-in-out infinite;
+  animation: floatSlow 3.4s ease-in-out infinite;
+}
+
+.anim-ambient {
+  animation: ambientDrift 6.5s ease-in-out infinite;
 }
 
 .anim-pulse-soft {
-  animation: pulseSoft 2.4s ease-in-out infinite;
+  animation: pulseSoft 2s ease-in-out infinite;
 }
 
-/* 3. Stagger Delays (ใช้คู่กับ .anim-fade-up เพื่อเรียงลำดับการ์ดขึ้นมาทีละใบ) */
-.stagger-1 { animation-delay: 40ms; }
-.stagger-2 { animation-delay: 90ms; }
-.stagger-3 { animation-delay: 140ms; }
-.stagger-4 { animation-delay: 190ms; }
-.stagger-5 { animation-delay: 240ms; }
-.stagger-6 { animation-delay: 290ms; }
+.anim-toast {
+  animation: toastPop 380ms var(--ease-spring) both;
+}
 
-/* 4. Interactive Hover & Active Micro-Interactions */
+.anim-pop {
+  animation: iconPop 440ms var(--ease-spring) both;
+}
+
+/* Expanding ring burst on Like button */
+.like-burst {
+  position: relative;
+}
+
+.like-burst::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid var(--ocean);
+  pointer-events: none;
+  animation: ringBurst 520ms var(--ease-out-expo) forwards;
+}
+
+/* 3. Navbar Physically Sliding Active Pill */
+.nav-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 12px;
+  background: rgba(44, 73, 102, 0.96);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+  pointer-events: none;
+}
+
+.nav-slider::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2.5px;
+  border-radius: 9999px;
+  background: #D8F3E5;
+  box-shadow: 0 0 8px rgba(216, 243, 229, 0.75);
+}
+
+/* 4. Interactive Cursor Spotlight + 3D Perspective Tilt Card */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+  transition:
+    transform 260ms var(--ease-out-expo),
+    box-shadow 300ms var(--ease-out-expo),
+    border-color 220ms var(--ease-smooth);
+  will-change: transform;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(90, 143, 163, 0.16),
+    rgba(216, 243, 229, 0.12) 40%,
+    transparent 70%
+  );
+  opacity: var(--spot-o, 0);
+  transition: opacity 280ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spotlight-card:hover {
+  box-shadow:
+    0 20px 36px -14px rgba(13, 28, 54, 0.15),
+    0 6px 14px -6px rgba(90, 143, 163, 0.20);
+}
+
+.spotlight-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 5. Interactive BrandLogo Hover Cape Flare & Roof Lift */
+.brand-logo-svg .logo-roof,
+.brand-logo-svg .logo-cape-l,
+.brand-logo-svg .logo-cape-r {
+  transition: transform 380ms var(--ease-spring);
+}
+
+.brand-logo-svg .logo-cape-l { transform-origin: 32px 35px; }
+.brand-logo-svg .logo-cape-r { transform-origin: 88px 35px; }
+
+.brand-logo-wrap:hover .logo-roof {
+  transform: translateY(-2.5px);
+}
+
+.brand-logo-wrap:hover .logo-cape-l {
+  transform: rotate(7deg) translateX(-1.5px);
+}
+
+.brand-logo-wrap:hover .logo-cape-r {
+  transform: rotate(-7deg) translateX(1.5px);
+}
+
+/* 6. True 2-Way Smooth CSS Grid Accordion */
+.accordion-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 380ms var(--ease-out-expo),
+    opacity 260ms var(--ease-smooth);
+}
+
+.accordion-grid[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.accordion-inner {
+  overflow: hidden;
+}
+
+/* 7. Stagger Delays (เห็นจังหวะการ์ดไหลขึ้นมาทีละใบชัดเจน) */
+.stagger-1 { animation-delay: 60ms; }
+.stagger-2 { animation-delay: 130ms; }
+.stagger-3 { animation-delay: 200ms; }
+.stagger-4 { animation-delay: 270ms; }
+.stagger-5 { animation-delay: 340ms; }
+.stagger-6 { animation-delay: 410ms; }
+
+/* 8. Interactive Hover & Tactile Spring Micro-Interactions */
 .hover-lift {
-  transition: transform var(--dur-fast) var(--ease-out-expo),
-              box-shadow var(--dur-fast) var(--ease-out-expo),
-              border-color var(--dur-fast) var(--ease-smooth);
+  transition:
+    transform 320ms var(--ease-spring),
+    box-shadow 280ms var(--ease-out-expo),
+    border-color 200ms var(--ease-smooth);
+  will-change: transform;
 }
 
 .hover-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px -8px rgba(13, 28, 54, 0.10);
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 32px -12px rgba(13, 28, 54, 0.14),
+    0 4px 12px -4px rgba(90, 143, 163, 0.16);
+}
+
+.hover-lift:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 .btn-press {
-  transition: transform 120ms var(--ease-smooth),
-              background-color var(--dur-fast) var(--ease-smooth),
-              border-color var(--dur-fast) var(--ease-smooth),
-              color var(--dur-fast) var(--ease-smooth);
+  transition:
+    transform 220ms var(--ease-spring),
+    background-color 180ms var(--ease-smooth),
+    border-color 180ms var(--ease-smooth),
+    color 180ms var(--ease-smooth),
+    box-shadow 200ms var(--ease-out-expo),
+    opacity 180ms var(--ease-smooth);
 }
 
 .btn-press:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
-/* 5. Accessibility: Respect Reduced Motion */
+/* Subtle sheen sweep on primary CTA buttons */
+.cta-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.34) 50%, transparent 80%);
+  transform: translateX(-130%);
+  transition: transform 640ms var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.cta-sheen:hover::after {
+  transform: translateX(130%);
+}
+
+/* 9. Accessibility: Respect Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .anim-page,
   .anim-fade-up,
   .anim-fade-in,
   .anim-modal-panel,
   .anim-slide-right,
+  .anim-sheet-turn,
   .anim-accordion,
   .anim-float,
+  .anim-ambient,
   .anim-pulse-soft,
-  .animate-bounce {
+  .anim-toast,
+  .anim-pop,
+  .animate-bounce,
+  .animate-pulse {
     animation: none !important;
   }
-  .hover-lift:hover {
+  .accordion-grid,
+  .nav-slider,
+  .spotlight-card,
+  .brand-logo-svg .logo-roof,
+  .brand-logo-svg .logo-cape-l,
+  .brand-logo-svg .logo-cape-r {
+    transition: none !important;
+  }
+  .hover-lift:hover,
+  .hover-lift:active,
+  .btn-press:active,
+  .spotlight-card {
     transform: none !important;
   }
+  .cta-sheen::after,
+  .like-burst::after {
+    display: none;
+  }
 }
-

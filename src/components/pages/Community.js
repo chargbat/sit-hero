@@ -25,10 +25,15 @@ window.ITHeroPages = window.ITHeroPages || {};
           onClick: onLike,
           className: cx(
             "btn-press inline-flex min-h-[44px] items-center gap-1.5 rounded-full px-3 text-[14px] font-medium transition-colors",
-            p.liked ? "bg-mint text-steel" : "text-muted hover:bg-ice hover:text-navy"
+            p.liked ? "like-burst bg-mint text-steel" : "text-muted hover:bg-ice hover:text-navy"
           )
         },
-        h(Icon, { n: "heart", size: 18, fill: p.liked ? "currentColor" : "none" }),
+        h(Icon, {
+          n: "heart",
+          size: 18,
+          fill: p.liked ? "currentColor" : "none",
+          className: p.liked ? "anim-pop" : ""
+        }),
         h("span", { className: "font-mono" }, p.likes)
       ),
       h(
@@ -64,7 +69,12 @@ window.ITHeroPages = window.ITHeroPages || {};
             p.saved ? "text-steel" : "text-muted hover:bg-ice hover:text-navy"
           )
         },
-        h(Icon, { n: "bookmark", size: 18, fill: p.saved ? "currentColor" : "none" })
+        h(Icon, {
+          n: "bookmark",
+          size: 18,
+          fill: p.saved ? "currentColor" : "none",
+          className: p.saved ? "anim-pop" : ""
+        })
       )
     );
   }
@@ -96,7 +106,7 @@ window.ITHeroPages = window.ITHeroPages || {};
               mine &&
                 h(
                   "span",
-                  { className: "ml-2 rounded-full bg-mint px-2 py-0.5 text-[11px] font-medium text-navy" },
+                  { className: "ml-2 rounded-full bg-mint px-2 py-0.5 text-[12px] font-medium text-navy" },
                   "You"
                 )
             ),
@@ -595,7 +605,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       try {
         navigator.clipboard.writeText(url).then(
           function () {
-            toast("Link copied to clipboard");
+            toast("คัดลอกลิงก์กระทู้แล้ว");
           },
           function () {
             toast("Share link: " + url);
@@ -689,7 +699,11 @@ window.ITHeroPages = window.ITHeroPages || {};
               h(Icon, { n: "filter", size: 16, className: "text-ocean" }),
               tagSel.length ? "Tags (" + tagSel.length + ")" : "Filter Tags"
             ),
-            h(Icon, { n: "chevDown", size: 18, className: "text-muted" })
+            h(Icon, {
+              n: "chevDown",
+              size: 18,
+              className: cx("text-muted transition-transform duration-200", tagMenu && "rotate-180")
+            })
           ),
           tagMenu &&
             h(
@@ -792,7 +806,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           })
         : h(
             "div",
-            { className: "flex flex-col gap-4" },
+            { key: sort + "-" + tagSel.join(","), className: "flex flex-col gap-4" },
             shown.map(function (p, idx) {
               return h(PostCard, {
                 key: p.id,
@@ -816,7 +830,7 @@ window.ITHeroPages = window.ITHeroPages || {};
                   patch(p.id, function (x) {
                     return Object.assign({}, x, { saved: !x.saved });
                   });
-                  toast(p.saved ? "Removed from saved posts" : "Post saved");
+                  toast(p.saved ? "ยกเลิกการบันทึกกระทู้แล้ว" : "บันทึกกระทู้ไว้แล้ว");
                 },
                 onDelete: function () {
                   setDelId(p.id);

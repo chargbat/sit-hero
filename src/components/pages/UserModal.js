@@ -66,7 +66,7 @@ window.ITHeroPages = window.ITHeroPages || {};
     function save() {
       setProfile(d);
       setEdit(false);
-      toast("Profile saved");
+      toast("บันทึกข้อมูลโปรไฟล์เรียบร้อยแล้ว");
     }
 
     function startEdit() {
@@ -86,18 +86,30 @@ window.ITHeroPages = window.ITHeroPages || {};
       { onClose: onClose, title: "User info", width: 880 },
       h(
         "div",
-        { className: "flex items-center justify-end px-4 pt-3" },
+        { className: "relative flex items-center justify-between border-b border-line bg-gradient-to-r from-navy via-steel to-navy px-6 py-4 text-white" },
+        h(
+          "div",
+          { className: "flex items-center gap-2.5" },
+          h("span", { className: "h-2.5 w-2.5 rounded-full bg-mint" }),
+          h("span", { className: "text-[14px] font-semibold tracking-wide text-mint/95" }, edit ? "Edit Profile" : "SIT Student Profile")
+        ),
         h(
           "button",
-          { type: "button", onClick: onClose, "aria-label": "Close", className: iconBtn },
+          {
+            type: "button",
+            onClick: onClose,
+            "aria-label": "Close",
+            className: cx(iconBtn, "!text-white/85 hover:!bg-white/10 hover:!text-white")
+          },
           h(Icon, { n: "x", size: 22 })
         )
       ),
       h(
         "div",
         {
+          key: edit ? "edit-mode" : "view-mode",
           className: cx(
-            "grid gap-8 overflow-y-auto px-8 pb-6",
+            "anim-fade-up grid gap-8 overflow-y-auto px-8 py-6",
             mobile ? "grid-cols-1" : "grid-cols-[280px_1fr]"
           )
         },
@@ -106,13 +118,13 @@ window.ITHeroPages = window.ITHeroPages || {};
           { className: "flex flex-col items-center gap-4" },
           h(
             "div",
-            { className: "relative" },
-            h(ProfilePhoto, { size: mobile ? 120 : 168 }),
+            { className: "relative rounded-full p-1 ring-2 ring-ocean/40" },
+            h(ProfilePhoto, { size: mobile ? 120 : 164 }),
             edit &&
               h(
                 "span",
                 {
-                  className: "absolute bottom-1 right-1 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-ocean text-white"
+                  className: "anim-pop absolute bottom-1 right-1 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-ocean text-white shadow-md"
                 },
                 h(Icon, { n: "pencil", size: 18 })
               )

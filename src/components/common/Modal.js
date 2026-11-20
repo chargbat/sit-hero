@@ -52,7 +52,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
         "div",
         {
           className: cx(
-            "anim-fade-in absolute inset-0 z-40 flex items-center justify-center bg-navy/55",
+            "anim-fade-in absolute inset-0 z-40 flex items-center justify-center bg-navy/50 backdrop-blur-sm",
             mobile ? "p-3" : "p-6"
           ),
           onMouseDown: function (e) {

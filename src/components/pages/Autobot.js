@@ -49,7 +49,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         onClick: function () {
           go(to);
         },
-        className: "btn-press flex min-h-[56px] w-full items-center gap-3 rounded-xl border border-ocean/40 bg-mint/50 px-3.5 py-2.5 text-left transition-colors hover:border-steel hover:bg-mint"
+        className: "btn-press group flex min-h-[56px] w-full items-center gap-3 rounded-xl border border-ocean/40 bg-mint/50 px-3.5 py-2.5 text-left transition-colors hover:border-steel hover:bg-mint"
       },
       h(
         "span",
@@ -62,7 +62,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         h("span", { className: "block text-[15px] font-semibold text-navy" }, info[0]),
         h("span", { className: "block text-[13px] text-navy/75" }, info[1])
       ),
-      h(Icon, { n: "arrowRight", size: 18, className: "text-steel" })
+      h(Icon, { n: "arrowRight", size: 18, className: "text-steel transition-transform duration-200 group-hover:translate-x-1" })
     );
   }
 
@@ -183,7 +183,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       null,
       h(PageHeader, {
         title: "Autobot",
-        sub: "Welcome to SIT Hero Chatbot · ผู้ช่วยอัจฉริยะตอบคำถามทันใจ"
+        sub: "ศูนย์รวมคำถามยอดฮิตและตัวช่วยนำทางหลักสูตร SIT KMUTT"
       }),
       h(
         "div",
@@ -210,7 +210,10 @@ window.ITHeroPages = window.ITHeroPages || {};
                   onClick: function () {
                     send(t, i);
                   },
-                  className: "btn-press hover-lift flex min-h-[48px] w-full items-center gap-3 rounded-xl border border-line bg-ice px-4 py-2.5 text-left text-[14px] text-navy transition-colors hover:border-ocean hover:bg-mint/50"
+                  className: cx(
+                    "anim-fade-up btn-press hover-lift flex min-h-[48px] w-full items-center gap-3 rounded-xl border border-line bg-ice px-4 py-2.5 text-left text-[14px] text-navy transition-colors hover:border-ocean hover:bg-mint/50",
+                    "stagger-" + ((i % 6) + 1)
+                  )
                 },
                 h("span", { className: "font-mono text-[13px] font-semibold text-ocean shrink-0" }, "#" + (i + 1)),
                 h("span", { className: "flex-1 leading-snug" }, t)
@@ -234,8 +237,13 @@ window.ITHeroPages = window.ITHeroPages || {};
             h(
               "div",
               null,
-              h("h2", { className: "text-[18px] font-semibold" }, "Welcome to SIT Hero Autobot!"),
-              h("p", { className: "text-[12px] text-mint/80" }, "Online · พร้อมช่วยตอบคำถามเกี่ยวกับการเรียน SIT KMUTT")
+              h("h2", { className: "text-[18px] font-semibold" }, "ผู้ช่วยตอบคำถาม SIT Hero"),
+              h(
+                "p",
+                { className: "mt-0.5 flex items-center gap-1.5 text-[12px] text-mint/90" },
+                h("span", { className: "inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-400" }),
+                "พร้อมตอบคำถามเรื่องการเรียน หลักสูตร และแนะนำหน้าเว็บ"
+              )
             )
           ),
           h(
@@ -249,7 +257,7 @@ window.ITHeroPages = window.ITHeroPages || {};
               if (m.role === "user") {
                 return h(
                   "div",
-                  { key: m.id, className: "anim-fade-up flex justify-end" },
+                  { key: m.id, className: "anim-slide-right flex justify-end" },
                   h(
                     "div",
                     { className: "max-w-[80%] rounded-2xl rounded-br-md bg-steel px-4 py-2.5 text-white shadow-sm" },
@@ -273,7 +281,7 @@ window.ITHeroPages = window.ITHeroPages || {};
                         h(
                           "p",
                           null,
-                          "Hello! 👋 Welcome to our SIT Hero Autobot. How can I help you today? Please select a topic below to find the information you need."
+                          "สวัสดีครับ เลือกหัวข้อที่ต้องการสอบถามด้านล่าง หรือพิมพ์รหัสวิชา/คำถามในช่องแชตได้เลย"
                         ),
                         h(
                           "div",
@@ -335,8 +343,8 @@ window.ITHeroPages = window.ITHeroPages || {};
             typing &&
               h(
                 "div",
-                { className: "flex items-start gap-3", "aria-label": "Autobot is typing" },
-                h(BotAvatar, null),
+                { className: "anim-fade-up flex items-start gap-3", "aria-label": "Autobot is typing" },
+                h("div", { className: "anim-pulse-soft rounded-full ring-2 ring-mint/80" }, h(BotAvatar, null)),
                 h(
                   "div",
                   { className: "flex gap-1.5 rounded-2xl rounded-tl-md border border-line bg-white px-4 py-4" },

@@ -7,7 +7,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
 
 (function () {
   const h = React.createElement;
-  const { useState } = React;
+  const { useState, useRef, useEffect } = React;
   const { cx, useApp } = window.ITHeroUtils;
   const { Icon } = window.ITHeroIcons;
   const { ProfilePhoto, BrandLogo } = window.ITHeroCommon;
@@ -21,8 +21,37 @@ window.ITHeroCommon = window.ITHeroCommon || {};
   ];
 
   function Navbar() {
-    const { mobile, go, route, openUser } = useApp();
+    const { mobile, go, route, openUser, scrollPct } = useApp();
     const [open, setOpen] = useState(false);
+    const navRefs = useRef({});
+    const [pill, setPill] = useState({ left: 0, width: 0, ready: false });
+
+    useEffect(
+      function () {
+        if (mobile) return void 0;
+        const el = navRefs.current[route];
+        if (!el) return void 0;
+        function measure() {
+          setPill({ left: el.offsetLeft, width: el.offsetWidth, ready: true });
+        }
+        measure();
+        const t = setTimeout(measure, 120);
+        let ro;
+        if (typeof ResizeObserver !== "undefined") {
+          ro = new ResizeObserver(measure);
+          ro.observe(el);
+          if (el.parentElement) ro.observe(el.parentElement);
+        }
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(measure);
+        }
+        return function () {
+          clearTimeout(t);
+          if (ro) ro.disconnect();
+        };
+      },
+      [route, mobile]
+    );
 
     const brand = h(
       "button",
@@ -35,7 +64,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
         className: "btn-press flex min-h-[44px] items-center gap-2.5 rounded-xl px-1.5 text-white transition-colors hover:bg-white/5",
         "aria-label": "SIT Hero, go to Home"
       },
-      h(BrandLogo, { size: 38, variant: "nav" }),
+      h(BrandLogo, { size: 32, variant: "nav" }),
       h(
         "span",
         { className: "flex flex-col items-start leading-none" },
@@ -58,7 +87,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
     if (mobile) {
       return h(
         "header",
-        { className: "sticky top-0 z-30 bg-navy text-white shadow-sm" },
+        { className: "sticky top-0 z-30 border-b border-white/10 bg-navy/95 text-white shadow-sm backdrop-blur-md" },
         h(
           "div",
           { className: "flex h-[64px] items-center justify-between px-4" },
@@ -114,7 +143,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
 
     return h(
       "header",
-      { className: "sticky top-0 z-30 bg-navy text-white shadow-sm" },
+      { className: "sticky top-0 z-30 border-b border-white/10 bg-navy/95 text-white shadow-sm backdrop-blur-md" },
       h(
         "div",
         { className: "mx-auto flex h-[72px] max-w-[1320px] items-center justify-between px-10" },
@@ -124,20 +153,33 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           { className: "flex items-center gap-4" },
           h(
             "nav",
-            { "aria-label": "Primary", className: "flex items-center gap-1" },
+            { "aria-label": "Primary", className: "relative flex items-center gap-1" },
+            pill.ready &&
+              h("span", {
+                "aria-hidden": "true",
+                className: "nav-slider",
+                style: {
+                  width: pill.width + "px",
+                  transform: "translateX(" + pill.left + "px)"
+                }
+              }),
             NAV.map(function ([k, label]) {
+              const active = route === k;
               return h(
                 "button",
                 {
                   key: k,
+                  ref: function (node) {
+                    navRefs.current[k] = node;
+                  },
                   type: "button",
                   onClick: function () {
                     go(k);
                   },
-                  "aria-current": route === k ? "page" : void 0,
+                  "aria-current": active ? "page" : void 0,
                   className: cx(
-                    "btn-press min-h-[44px] rounded-xl px-4 text-[15px] font-medium transition-colors",
-                    route === k ? "bg-steel text-white" : "text-white/80 hover:bg-white/10 hover:text-white"
+                    "btn-press relative z-10 min-h-[44px] rounded-xl px-4 text-[15px] font-medium transition-colors",
+                    active ? "text-white" : "text-white/75 hover:bg-white/10 hover:text-white"
                   )
                 },
                 label
@@ -146,6 +188,15 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           ),
           avatarBtn
         )
+      ),
+      /* Top Scroll Progress Indicator */
+      h(
+        "div",
+        { className: "h-[2.5px] w-full bg-white/5 overflow-hidden" },
+        h("div", {
+          className: "h-full bg-gradient-to-r from-mint via-ocean to-brandOrange transition-[width] duration-150 ease-out",
+          style: { width: Math.min(100, Math.max(0, scrollPct || 0)) + "%" }
+        })
       )
     );
   }

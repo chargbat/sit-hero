@@ -166,36 +166,79 @@ window.ITHeroCommon = window.ITHeroCommon || {};
       {
         role: "status",
         "aria-live": "polite",
-        className: "anim-fade-up pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-navy px-5 py-2.5 text-[14px] font-medium text-white shadow-lg"
+        className: "anim-toast pointer-events-none fixed bottom-6 left-1/2 z-50 inline-flex items-center gap-2 rounded-full border border-white/15 bg-navy/95 px-5 py-2.5 text-[14px] font-medium text-white shadow-xl backdrop-blur-md"
       },
+      h(Icon, { n: "check", size: 16, className: "text-mint" }),
       msg
     );
   }
 
-  /* โลโก้ Vector SVG ของ SIT Hero (ทรงหลังคา IT + ผ้าคลุมฮีโร่ พื้นโปร่งใส/กลืนธีม) */
+  /* ตัวเลขวิ่งขึ้นแบบ Eased CountUp */
+  function CountUp({ to, duration = 680 }) {
+    const [val, setVal] = React.useState(0);
+    const prevRef = React.useRef(0);
+
+    React.useEffect(
+      function () {
+        const start = prevRef.current;
+        const target = Number(to) || 0;
+        if (start === target) {
+          setVal(target);
+          return void 0;
+        }
+        let rafId = 0;
+        const t0 = performance.now();
+        function tick(now) {
+          const p = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const cur = Math.round(start + (target - start) * eased);
+          setVal(cur);
+          if (p < 1) {
+            rafId = requestAnimationFrame(tick);
+          } else {
+            prevRef.current = target;
+          }
+        }
+        rafId = requestAnimationFrame(tick);
+        return function () {
+          cancelAnimationFrame(rafId);
+        };
+      },
+      [to, duration]
+    );
+
+    return h("span", null, val);
+  }
+
+  /* โลโก้ Vector SVG ของ SIT Hero (Pure Transparent Mark ตามหลัก Responsive Brand Identity — ไม่มีกรอบพื้นหลัง) */
   function BrandLogo({ size = 40, variant = "nav" }) {
     const isHero = variant === "hero";
-    const gradId = isHero ? "sithero-grad-hero" : "sithero-grad-nav";
-    const bgId = isHero ? "sithero-bg-hero" : "sithero-bg-nav";
+    const idPrefix = isHero ? "hero-logo" : "nav-logo";
+
+    /* Color adaptation: สว่างคมชัดบนพื้นเข้ม (Navbar) / เข้มมีมิติบนพื้นสว่าง (Hero) */
+    const cLight = isHero ? "#29B6F6" : "#7DD3FC";
+    const cMid = isHero ? "#0EA5E9" : "#38BDF8";
+    const cDark = isHero ? "#0284C7" : "#0EA5E9";
+    const cDeep = isHero ? "#0369A1" : "#0284C7";
+
+    const viewBox = isHero ? "0 0 120 108" : "0 4 120 76";
+    const width = isHero ? size : Math.round(size * 1.38);
+    const height = isHero ? Math.round(size * 0.9) : size;
 
     return h(
       "span",
       {
-        className: cx(
-          "inline-flex shrink-0 items-center justify-center overflow-hidden select-none",
-          isHero
-            ? "rounded-3xl shadow-md ring-1 ring-ocean/30"
-            : "rounded-xl ring-1 ring-white/15"
-        ),
-        style: { width: size, height: size }
+        className: "brand-logo-wrap inline-flex shrink-0 items-center justify-center select-none",
+        style: { width: width, height: height }
       },
       h(
         "svg",
         {
-          width: size,
-          height: size,
-          viewBox: "0 0 64 64",
+          width: width,
+          height: height,
+          viewBox: viewBox,
           fill: "none",
+          className: "brand-logo-svg overflow-visible",
           role: "img",
           "aria-label": "SIT Hero Logo"
         },
@@ -204,55 +247,82 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           null,
           h(
             "linearGradient",
-            { id: bgId, x1: "0", y1: "0", x2: "64", y2: "64", gradientUnits: "userSpaceOnUse" },
-            h("stop", { offset: "0%", stopColor: isHero ? "#0D1C36" : "#162C4E" }),
-            h("stop", { offset: "100%", stopColor: isHero ? "#1E3B63" : "#244369" })
+            { id: idPrefix + "-roof-l", x1: "20", y1: "28", x2: "60", y2: "10", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: cMid }),
+            h("stop", { offset: "100%", stopColor: cLight })
           ),
           h(
             "linearGradient",
-            { id: gradId, x1: "14", y1: "12", x2: "50", y2: "52", gradientUnits: "userSpaceOnUse" },
-            h("stop", { offset: "0%", stopColor: "#38BDF8" }),
-            h("stop", { offset: "100%", stopColor: "#7DD3FC" })
+            { id: idPrefix + "-roof-r", x1: "60", y1: "10", x2: "100", y2: "28", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: cDark }),
+            h("stop", { offset: "100%", stopColor: cMid })
+          ),
+          h(
+            "linearGradient",
+            { id: idPrefix + "-pillar", x1: "0", y1: "20", x2: "0", y2: "74", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: cDark }),
+            h("stop", { offset: "100%", stopColor: cLight })
+          ),
+          h(
+            "linearGradient",
+            { id: idPrefix + "-cape-l", x1: "30", y1: "34", x2: "6", y2: "74", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: cDeep }),
+            h("stop", { offset: "100%", stopColor: cLight })
+          ),
+          h(
+            "linearGradient",
+            { id: idPrefix + "-cape-r", x1: "90", y1: "34", x2: "114", y2: "74", gradientUnits: "userSpaceOnUse" },
+            h("stop", { offset: "0%", stopColor: cDeep }),
+            h("stop", { offset: "100%", stopColor: cLight })
           )
         ),
-        h("rect", { width: "64", height: "64", rx: isHero ? "16" : "14", fill: "url(#" + bgId + ")" }),
-        /* ผ้าคลุมฮีโร่ซ้าย-ขวา */
+
+        /* ปีกผ้าคลุมฮีโร่ด้านซ้าย (Symmetric Hero Cape Left) */
         h("path", {
-          d: "M19 28 C16.5 36, 12.5 41.5, 8 44.5 C13.5 43.5, 18 39, 20.5 32 Z",
-          fill: "#D8F3E5",
-          opacity: "0.9"
+          className: "logo-cape-l",
+          d: "M31 35 C27 49 17 61 5 67.5 C7.5 69.5 11.5 72 13 73.5 C12.5 71.5 14 70 16.5 68.5 C24.5 62.5 31.5 50.5 32.5 37.5 Z",
+          fill: "url(#" + idPrefix + "-cape-l)"
         }),
+        /* ปีกผ้าคลุมฮีโร่ด้านขวา (Symmetric Hero Cape Right) */
         h("path", {
-          d: "M45 28 C47.5 36, 51.5 41.5, 56 44.5 C50.5 43.5, 46 39, 43.5 32 Z",
-          fill: "#D8F3E5",
-          opacity: "0.9"
+          className: "logo-cape-r",
+          d: "M89 35 C93 49 103 61 115 67.5 C112.5 69.5 108.5 72 107 73.5 C107.5 71.5 106 70 103.5 68.5 C95.5 62.5 88.5 50.5 87.5 37.5 Z",
+          fill: "url(#" + idPrefix + "-cape-r)"
         }),
-        /* หลังคาตัว T/บ้าน IT */
-        h("path", {
-          d: "M15 24 L32 14 L49 24",
-          stroke: "url(#" + gradId + ")",
-          strokeWidth: "4.6",
-          strokeLinecap: "round",
-          strokeLinejoin: "round"
-        }),
-        /* เสาสองต้นเป็นตัว I และ T */
-        h("rect", { x: "23.5", y: "22", width: "4.8", height: "21", rx: "2.2", fill: "url(#" + gradId + ")" }),
-        h("rect", { x: "19", y: "39", width: "13.8", height: "4.4", rx: "2.2", fill: "url(#" + gradId + ")" }),
-        h("rect", { x: "35.7", y: "22", width: "4.8", height: "21.4", rx: "2.2", fill: "url(#" + gradId + ")" }),
-        /* จุดเน้นสีส้ม KMUTT ที่ยอดหลังคา */
-        h("circle", { cx: "32", cy: "14", r: "2.6", fill: "#F26522" }),
-        /* คำว่า HERO ด้านล่างสำหรับขนาดใหญ่ */
+
+        /* เสาตัว I (Left Pillar + Base) */
+        h("rect", { x: "40", y: "24", width: "9", height: "42", rx: "2.5", fill: "url(#" + idPrefix + "-pillar)" }),
+        h("rect", { x: "27", y: "62", width: "33", height: "9", rx: "3", fill: cMid }),
+
+        /* เสาตัว T (Right Pillar) */
+        h("rect", { x: "71", y: "24", width: "9.5", height: "47", rx: "2.5", fill: "url(#" + idPrefix + "-pillar)" }),
+
+        /* หลังคาทรงจั่ว IT (2-Tone Faceted Pitched Roof) */
+        h(
+          "g",
+          { className: "logo-roof" },
+          h("path", {
+            d: "M22 28.5 L60 11 L60 21.5 L24.5 36.5 C22.5 37.3 20.5 35.8 20.5 33.7 L20.5 31 C20.5 29.9 21.1 29 22 28.5 Z",
+            fill: "url(#" + idPrefix + "-roof-l)"
+          }),
+          h("path", {
+            d: "M98 28.5 L60 11 L60 21.5 L95.5 36.5 C97.5 37.3 99.5 35.8 99.5 33.7 L99.5 31 C99.5 29.9 98.9 29 98 28.5 Z",
+            fill: "url(#" + idPrefix + "-roof-r)"
+          })
+        ),
+
+        /* Wordmark "HERO" (แสดงเฉพาะขนาด Hero Lockup ตามหลัก Responsive Logo) */
         isHero &&
           h(
             "text",
             {
-              x: "32",
-              y: "55",
+              x: "60",
+              y: "98",
               textAnchor: "middle",
-              fill: "#D8F3E5",
-              fontSize: "9",
-              fontWeight: "700",
-              letterSpacing: "2.2",
+              fill: cDark,
+              fontSize: "20",
+              fontWeight: "800",
+              letterSpacing: "3.2",
               fontFamily: "Inter, system-ui, sans-serif"
             },
             "HERO"
@@ -314,6 +384,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
     ProfilePhoto: ProfilePhoto,
     ProfessorAvatar: ProfessorAvatar,
     BrandLogo: BrandLogo,
+    CountUp: CountUp,
     Tag: Tag,
     CourseBadge: CourseBadge,
     Select: Select,

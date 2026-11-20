@@ -10,7 +10,7 @@ window.ITHeroPages = window.ITHeroPages || {};
   const { useState, useEffect } = React;
   const { cx, btnBase, iconBtn, useApp } = window.ITHeroUtils;
   const { Icon } = window.ITHeroIcons;
-  const { Page, PageHeader, Select, CourseBadge, ProfessorAvatar } = window.ITHeroCommon;
+  const { Page, PageHeader, Select, CourseBadge, ProfessorAvatar, CountUp } = window.ITHeroCommon;
   const { TRACKS, coursesFor } = window.ITHeroData;
 
   function CourseGuide() {
@@ -42,6 +42,15 @@ window.ITHeroPages = window.ITHeroPages || {};
     const totalCredits = list.reduce(function (sum, item) {
       return sum + (item.credits || 0);
     }, 0);
+    const coreCredits = list.reduce(function (sum, item) {
+      return !item.elective && item.category !== "gened" ? sum + (item.credits || 0) : sum;
+    }, 0);
+    const trackCredits = list.reduce(function (sum, item) {
+      return item.elective ? sum + (item.credits || 0) : sum;
+    }, 0);
+    const genedCredits = list.reduce(function (sum, item) {
+      return item.category === "gened" ? sum + (item.credits || 0) : sum;
+    }, 0);
 
     return h(
       Page,
@@ -51,30 +60,7 @@ window.ITHeroPages = window.ITHeroPages || {};
         sub: "หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ (SIT KMUTT)"
       }),
 
-      /* Official Citation Banner */
-      h(
-        "div",
-        { className: "anim-fade-up -mt-2 mb-5 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white px-4 py-3 border border-line text-[13px] shadow-sm" },
-        h(
-          "div",
-          { className: "flex flex-wrap items-center gap-2" },
-          h("span", { className: "rounded-md bg-navy px-2.5 py-0.5 font-mono text-[12px] font-bold text-mint" }, "OFFICIAL"),
-          h("span", { className: "text-navy font-medium" }, "อ้างอิงหลักสูตร วท.บ. เทคโนโลยีสารสนเทศ (128 หน่วยกิต · ค่าเล่าเรียนเฉลี่ย 45,100 บ./เทอม)"),
-          h("span", { className: "rounded-full bg-brandOrangeLight text-brandOrange border border-brandOrangeBorder px-2.5 py-0.5 text-[12px] font-semibold" }, "พ.ศ. 2567")
-        ),
-        h(
-          "a",
-          {
-            href: "https://www.sit.kmutt.ac.th/bsc/bsc-it-2/",
-            target: "_blank",
-            rel: "noreferrer",
-            className: "btn-press inline-flex min-h-[40px] items-center gap-1 rounded-lg bg-ice px-3 py-1.5 font-semibold text-steel transition-colors hover:bg-mint/70 hover:text-navy ml-auto"
-          },
-          "ตรวจดูบนเว็บ SIT ↗"
-        )
-      ),
-
-      /* Pop-up แจ้งเตือนจาก Professor Jiewliew เมื่อเลือก ปี 2 เทอม 2 ขึ้นไป (หน้า 6 & หน้า 10 ของ PDF) */
+      /* Pop-up แจ้งเตือนจาก Professor Jiewliew เมื่อเลือก ปี 2 เทอม 2 ขึ้นไป */
       electiveOn &&
         !dismissed &&
         h(
@@ -100,7 +86,7 @@ window.ITHeroPages = window.ITHeroPages || {};
             h(
               "p",
               { className: "mt-1 text-[14px] text-navy/80" },
-              "ตั้งแต่ชั้นปีที่ 2 เทอม 2 เป็นต้นไป นักศึกษาสามารถเลือกสายอาชีพ (Career Track) ทั้ง 9 สาย เพื่อดูรายวิชาเฉพาะทางตามหลักสูตรทางการของ SIT ได้เลยครับ!"
+              "ตั้งแต่ปี 2 เทอม 2 เป็นต้นไป เลือกสายอาชีพด้านล่างเพื่อดูวิชาบังคับเลือกเฉพาะสายได้เลย"
             )
           ),
           h(
@@ -202,26 +188,67 @@ window.ITHeroPages = window.ITHeroPages || {};
         )
       ),
 
-      /* สรุปจำนวนวิชาและหน่วยกิตรวม */
+      /* สรุปจำนวนวิชาและหน่วยกิตรวม + แถบสัดส่วนหน่วยกิตแบบ Animated */
       h(
         "div",
-        { className: "mb-3 mt-6 flex flex-wrap items-baseline justify-between gap-2" },
-        h("h2", { className: "t-h3 text-navy" }, "Year ", year, " · Term ", term),
+        { className: "mb-4 mt-6 rounded-xl border border-line bg-white px-5 py-3.5 shadow-sm" },
         h(
-          "p",
-          { className: "text-[14px] font-medium text-muted" },
-          list.length,
-          " รายวิชา · รวม ",
-          totalCredits,
-          " หน่วยกิต",
-          trackName ? " · สาย " + trackName : ""
-        )
+          "div",
+          { className: "flex flex-wrap items-baseline justify-between gap-2" },
+          h("h2", { className: "t-h3 text-navy" }, "Year ", year, " · Term ", term),
+          h(
+            "p",
+            { className: "text-[14px] font-medium text-muted" },
+            list.length,
+            " รายวิชา · รวม ",
+            h("span", { className: "font-mono font-bold text-navy" }, h(CountUp, { to: totalCredits, duration: 480 })),
+            " หน่วยกิต",
+            trackName ? " · สาย " + trackName : ""
+          )
+        ),
+        totalCredits > 0 &&
+          h(
+            "div",
+            { className: "mt-2.5 flex flex-col gap-2" },
+            h(
+              "div",
+              { className: "flex h-2 w-full overflow-hidden rounded-full bg-ice" },
+              coreCredits > 0 &&
+                h("div", {
+                  className: "bg-steel transition-all duration-500",
+                  style: { width: (coreCredits / totalCredits) * 100 + "%" },
+                  title: "IT Core: " + coreCredits + " นก."
+                }),
+              trackCredits > 0 &&
+                h("div", {
+                  className: "bg-brandOrange transition-all duration-500",
+                  style: { width: (trackCredits / totalCredits) * 100 + "%" },
+                  title: "Track Elective: " + trackCredits + " นก."
+                }),
+              genedCredits > 0 &&
+                h("div", {
+                  className: "bg-ocean/60 transition-all duration-500",
+                  style: { width: (genedCredits / totalCredits) * 100 + "%" },
+                  title: "GenEd / LNG / Free: " + genedCredits + " นก."
+                })
+            ),
+            h(
+              "div",
+              { className: "flex flex-wrap items-center gap-4 text-[12px] text-muted" },
+              coreCredits > 0 &&
+                h("span", { className: "inline-flex items-center gap-1.5" }, h("span", { className: "h-2 w-2 rounded-full bg-steel" }), "IT Core (" + coreCredits + " นก.)"),
+              trackCredits > 0 &&
+                h("span", { className: "inline-flex items-center gap-1.5" }, h("span", { className: "h-2 w-2 rounded-full bg-brandOrange" }), "Track Elective (" + trackCredits + " นก.)"),
+              genedCredits > 0 &&
+                h("span", { className: "inline-flex items-center gap-1.5" }, h("span", { className: "h-2 w-2 rounded-full bg-ocean/60" }), "GenEd / ภาษา / เลือกเสรี (" + genedCredits + " นก.)")
+            )
+          )
       ),
 
-      /* รายการวิชา (Course List) พร้อมการ์ดเปิดดู Subject info (what) & Subject info (why) */
+      /* รายการวิชา (Course List) พร้อมการ์ดเปิดดูรายละเอียด */
       h(
         "ul",
-        { className: "flex flex-col gap-3" },
+        { key: year + "-" + term + "-" + track + "-" + categoryFilter, className: "flex flex-col gap-3" },
         list.map(function (c, idx) {
           const isOpen = !!open[c.code];
           return h(
@@ -229,9 +256,9 @@ window.ITHeroPages = window.ITHeroPages || {};
             {
               key: c.code,
               className: cx(
-                "anim-fade-up hover-lift overflow-hidden rounded-xl border bg-white transition-colors",
+                "anim-fade-up hover-lift overflow-hidden rounded-xl border bg-white transition-all duration-200",
                 "stagger-" + ((idx % 6) + 1),
-                isOpen ? "border-ocean shadow-sm" : "border-line"
+                isOpen ? "border-ocean ring-1 ring-ocean/25 shadow-sm" : "border-line"
               )
             },
             h(
@@ -273,7 +300,11 @@ window.ITHeroPages = window.ITHeroPages || {};
                         { className: "ml-auto font-mono text-[12px] font-medium text-muted shrink-0" },
                         c.creditDetail
                       ),
-                      h(Icon, { n: isOpen ? "chevUp" : "chevDown", size: 20, className: "text-ocean" })
+                      h(Icon, {
+                        n: "chevDown",
+                        size: 20,
+                        className: cx("text-ocean transition-transform duration-300", isOpen && "rotate-180")
+                      })
                     ),
                     h(
                       "span",
@@ -307,54 +338,68 @@ window.ITHeroPages = window.ITHeroPages || {};
                       { key: "cred", className: "shrink-0 font-mono text-[13px] font-medium text-muted" },
                       c.creditDetail
                     ),
-                    h(Icon, { key: "chev", n: isOpen ? "chevUp" : "chevDown", size: 22, className: "text-ocean" })
+                    h(Icon, {
+                      key: "chev",
+                      n: "chevDown",
+                      size: 22,
+                      className: cx("text-ocean transition-transform duration-300", isOpen && "rotate-180")
+                    })
                   ]
             ),
-            isOpen &&
+            h(
+              "div",
+              {
+                id: "b-" + c.code,
+                role: "region",
+                "aria-labelledby": "h-" + c.code,
+                "aria-hidden": !isOpen,
+                "data-open": isOpen ? "true" : "false",
+                className: "accordion-grid"
+              },
               h(
                 "div",
-                {
-                  id: "b-" + c.code,
-                  role: "region",
-                  "aria-labelledby": "h-" + c.code,
-                  className: "anim-accordion border-t border-line px-5 pb-5 pt-4"
-                },
+                { className: "accordion-inner" },
                 h(
                   "div",
-                  { className: "mb-3 flex flex-wrap items-center justify-between gap-2" },
-                  h(
-                    "span",
-                    { className: "text-[13px] font-medium text-muted" },
-                    c.category === "gened"
-                      ? "หมวดวิชาศึกษาทั่วไป (General Education)"
-                      : c.elective
-                        ? "หมวดวิชาเลือกเฉพาะสายอาชีพ (Career Track Elective)"
-                        : "หมวดวิชาแกนและพื้นฐานเทคโนโลยีสารสนเทศ (IT Core Course)"
-                  ),
-                  h(
-                    "span",
-                    { className: "rounded-full bg-mint px-3.5 py-1 text-[13px] font-semibold text-navy" },
-                    "หน่วยกิต: ",
-                    h("span", { className: "font-mono" }, c.creditDetail)
-                  )
-                ),
-                h(
-                  "div",
-                  { className: cx("grid gap-4", mobile ? "grid-cols-1" : "grid-cols-2") },
+                  { className: "border-t border-line px-5 pb-5 pt-4" },
                   h(
                     "div",
-                    { className: "rounded-xl bg-ice p-4 border border-line/60" },
-                    h("p", { className: "mb-1 text-[13px] font-semibold uppercase tracking-wide text-ocean" }, "Subject info (what)"),
-                    h("p", { className: "text-[15px] text-navy leading-relaxed" }, c.what)
+                    { className: "mb-3 flex flex-wrap items-center justify-between gap-2" },
+                    h(
+                      "span",
+                      { className: "text-[13px] font-medium text-muted" },
+                      c.category === "gened"
+                        ? "หมวดวิชาศึกษาทั่วไป (General Education)"
+                        : c.elective
+                          ? "หมวดวิชาเลือกเฉพาะสายอาชีพ (Career Track Elective)"
+                          : "หมวดวิชาแกนและพื้นฐานเทคโนโลยีสารสนเทศ (IT Core Course)"
+                    ),
+                    h(
+                      "span",
+                      { className: "rounded-full bg-mint px-3.5 py-1 text-[13px] font-semibold text-navy" },
+                      "หน่วยกิต: ",
+                      h("span", { className: "font-mono" }, c.creditDetail)
+                    )
                   ),
                   h(
                     "div",
-                    { className: "rounded-xl bg-ice p-4 border border-line/60" },
-                    h("p", { className: "mb-1 text-[13px] font-semibold uppercase tracking-wide text-ocean" }, "Subject info (why)"),
-                    h("p", { className: "text-[15px] text-navy leading-relaxed" }, c.why)
+                    { className: cx("grid gap-4", mobile ? "grid-cols-1" : "grid-cols-2") },
+                    h(
+                      "div",
+                      { className: "rounded-xl bg-ice p-4 border border-line/60" },
+                      h("p", { className: "mb-1 text-[13px] font-semibold text-ocean" }, "วิชานี้เรียนอะไร"),
+                      h("p", { className: "text-[15px] text-navy leading-relaxed" }, c.what)
+                    ),
+                    h(
+                      "div",
+                      { className: "rounded-xl bg-ice p-4 border border-line/60" },
+                      h("p", { className: "mb-1 text-[13px] font-semibold text-ocean" }, "สำคัญยังไง / ต่อยอดอะไรได้"),
+                      h("p", { className: "text-[15px] text-navy leading-relaxed" }, c.why)
+                    )
                   )
                 )
               )
+            )
           );
         })
       )

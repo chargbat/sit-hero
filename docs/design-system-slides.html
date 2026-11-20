@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIT Hero — Design System & Component Library Slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
+  />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0D1C36',
+            steel: '#2C4966',
+            ocean: '#5A8FA3',
+            mint: '#D8F3E5',
+            ice: '#F6F9FA',
+            line: '#E2ECEF',
+            muted: '#51627A',
+            danger: '#B4413A',
+            brandOrange: '#F26522',
+            brandOrangeLight: '#FFF3EB',
+            brandOrangeBorder: '#FFD3BD'
+          },
+          fontFamily: {
+            sans: ['Inter', '"IBM Plex Sans Thai"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px;
+      background: #0F172A;
+      font-family: 'Inter', 'IBM Plex Sans Thai', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+    .slide {
+      width: 1600px;
+      height: 900px;
+      background-color: #F6F9FA;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(216, 243, 229, 0.72) 0px, transparent 48%),
+        radial-gradient(at 100% 6%, rgba(90, 143, 163, 0.16) 0px, transparent 44%),
+        radial-gradient(at 92% 100%, rgba(242, 101, 34, 0.08) 0px, transparent 40%);
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 46px 56px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .figma-box {
+      border: 1.5px dashed #8BB3C4;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.86);
+      padding: 18px;
+    }
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .swatch-chip {
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(13, 28, 54, 0.08);
+    }
+    @media print {
+      body { background: white; padding: 0; gap: 0; }
+      .slide { box-shadow: none; border-radius: 0; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       SLIDE 1: DESIGN SYSTEM — FOUNDATIONS (Color, Border, Typography, Spacing, Radius, Shadow)
+       ===================================================================== -->
+  <section id="slide-1" class="slide">
+    <!-- Slide Header -->
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="font-mono text-[13px] font-semibold uppercase tracking-[0.16em] text-ocean">SIT HERO · DESIGN FOUNDATIONS</p>
+        <h1 class="mt-1 text-[42px] font-extrabold tracking-tight text-navy leading-none">DESIGN SYSTEM</h1>
+      </div>
+      <div class="flex items-center gap-3 rounded-2xl border border-line bg-white/90 px-4 py-2.5 shadow-sm">
+        <svg width="38" height="28" viewBox="0 4 120 76" fill="none">
+          <path d="M31 35 C27 49 17 61 5 67.5 C7.5 69.5 11.5 72 13 73.5 C12.5 71.5 14 70 16.5 68.5 C24.5 62.5 31.5 50.5 32.5 37.5 Z" fill="#0284C7"/>
+          <path d="M89 35 C93 49 103 61 115 67.5 C112.5 69.5 108.5 72 107 73.5 C107.5 71.5 106 70 103.5 68.5 C95.5 62.5 88.5 50.5 87.5 37.5 Z" fill="#0284C7"/>
+          <rect x="40" y="24" width="9" height="42" rx="2.5" fill="#0EA5E9"/>
+          <rect x="27" y="62" width="33" height="9" rx="3" fill="#0EA5E9"/>
+          <rect x="71" y="24" width="9.5" height="47" rx="2.5" fill="#0EA5E9"/>
+          <path d="M22 28.5 L60 11 L60 21.5 L24.5 36.5 C22.5 37.3 20.5 35.8 20.5 33.7 L20.5 31 C20.5 29.9 21.1 29 22 28.5 Z" fill="#29B6F6"/>
+          <path d="M98 28.5 L60 11 L60 21.5 L95.5 36.5 C97.5 37.3 99.5 35.8 99.5 33.7 L99.5 31 C99.5 29.9 98.9 29 98 28.5 Z" fill="#0284C7"/>
+        </svg>
+        <div class="leading-tight">
+          <div class="text-[15px] font-bold text-navy">SIT Hero</div>
+          <div class="font-mono text-[11px] text-muted">B.Sc. IT · KMUTT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main 2-Column Foundations Layout -->
+    <div class="mt-6 grid flex-1 grid-cols-[1.12fr_0.88fr] gap-7">
+
+      <!-- Left Column: Color System + Typography -->
+      <div class="flex flex-col gap-5">
+        <!-- Color System Card -->
+        <div class="rounded-2xl border border-line bg-white p-6 shadow-sm">
+          <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-[18px] font-bold tracking-wide text-navy">COLOR SYSTEM</h2>
+            <span class="font-mono text-[12px] text-muted">Brand · Accent · Semantic · Base</span>
+          </div>
+
+          <!-- Primary Scale (Navy & Steel) -->
+          <div class="mb-4">
+            <div class="mb-2 flex items-center gap-2 text-[13px] font-semibold text-navy">
+              <span class="h-2.5 w-2.5 rounded-full bg-navy"></span>
+              Primary (Navy / Steel / Ocean)
+            </div>
+            <div class="grid grid-cols-7 gap-2.5">
+              <div class="swatch"><div class="swatch-chip" style="background:#EDF4F7"></div><span class="font-mono text-[11px] font-semibold text-navy">50</span><span class="font-mono text-[10px] text-muted">#EDF4F7</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#C6DCE6"></div><span class="font-mono text-[11px] font-semibold text-navy">200</span><span class="font-mono text-[10px] text-muted">#C6DCE6</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#8BB3C4"></div><span class="font-mono text-[11px] font-semibold text-navy">300</span><span class="font-mono text-[10px] text-muted">#8BB3C4</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#5A8FA3"></div><span class="font-mono text-[11px] font-semibold text-ocean">Ocean</span><span class="font-mono text-[10px] text-muted">#5A8FA3</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#2C4966"></div><span class="font-mono text-[11px] font-semibold text-steel">Steel</span><span class="font-mono text-[10px] text-muted">#2C4966</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#1A3052"></div><span class="font-mono text-[11px] font-semibold text-navy">800</span><span class="font-mono text-[10px] text-muted">#1A3052</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#0D1C36"></div><span class="font-mono text-[11px] font-semibold text-navy">Navy</span><span class="font-mono text-[10px] text-muted">#0D1C36</span></div>
+            </div>
+          </div>
+
+          <!-- Secondary & KMUTT Accent -->
+          <div class="mb-4 grid grid-cols-2 gap-4">
+            <div>
+              <div class="mb-2 flex items-center gap-2 text-[13px] font-semibold text-navy">
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                Secondary (Mint Highlight)
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="swatch"><div class="swatch-chip" style="background:#ECFBF3"></div><span class="font-mono text-[11px] font-semibold text-navy">Mint 50</span><span class="font-mono text-[10px] text-muted">#ECFBF3</span></div>
+                <div class="swatch"><div class="swatch-chip" style="background:#D8F3E5"></div><span class="font-mono text-[11px] font-semibold text-navy">Mint</span><span class="font-mono text-[10px] text-muted">#D8F3E5</span></div>
+                <div class="swatch"><div class="swatch-chip" style="background:#A3DFC2"></div><span class="font-mono text-[11px] font-semibold text-navy">Mint 400</span><span class="font-mono text-[10px] text-muted">#A3DFC2</span></div>
+              </div>
+            </div>
+            <div>
+              <div class="mb-2 flex items-center gap-2 text-[13px] font-semibold text-navy">
+                <span class="h-2.5 w-2.5 rounded-full bg-brandOrange"></span>
+                Accent (KMUTT Orange & Danger)
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="swatch"><div class="swatch-chip" style="background:#FFF3EB"></div><span class="font-mono text-[11px] font-semibold text-navy">Orange Lt</span><span class="font-mono text-[10px] text-muted">#FFF3EB</span></div>
+                <div class="swatch"><div class="swatch-chip" style="background:#F26522"></div><span class="font-mono text-[11px] font-semibold text-brandOrange">KMUTT</span><span class="font-mono text-[10px] text-muted">#F26522</span></div>
+                <div class="swatch"><div class="swatch-chip" style="background:#B4413A"></div><span class="font-mono text-[11px] font-semibold text-danger">Danger</span><span class="font-mono text-[10px] text-muted">#B4413A</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Base Neutrals -->
+          <div>
+            <div class="mb-2 flex items-center gap-2 text-[13px] font-semibold text-navy">
+              <span class="h-2.5 w-2.5 rounded-full bg-muted"></span>
+              Base (Surface / Border / Text)
+            </div>
+            <div class="grid grid-cols-5 gap-2.5">
+              <div class="swatch"><div class="swatch-chip" style="background:#FFFFFF"></div><span class="font-mono text-[11px] font-semibold text-navy">White</span><span class="font-mono text-[10px] text-muted">#FFFFFF</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#F6F9FA"></div><span class="font-mono text-[11px] font-semibold text-navy">Ice</span><span class="font-mono text-[10px] text-muted">#F6F9FA</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#E6EDF0"></div><span class="font-mono text-[11px] font-semibold text-navy">Stage</span><span class="font-mono text-[10px] text-muted">#E6EDF0</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#E2ECEF"></div><span class="font-mono text-[11px] font-semibold text-navy">Line</span><span class="font-mono text-[10px] text-muted">#E2ECEF</span></div>
+              <div class="swatch"><div class="swatch-chip" style="background:#51627A"></div><span class="font-mono text-[11px] font-semibold text-navy">Muted</span><span class="font-mono text-[10px] text-muted">#51627A</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography Card -->
+        <div class="flex-1 rounded-2xl border border-line bg-white p-6 shadow-sm">
+          <div class="mb-3 flex items-center justify-between">
+            <h2 class="text-[18px] font-bold tracking-wide text-navy">TYPOGRAPHY</h2>
+            <span class="font-mono text-[12px] text-ocean">Inter · IBM Plex Sans Thai · JetBrains Mono</span>
+          </div>
+          <div class="grid grid-cols-[1.2fr_0.8fr] gap-5">
+            <div class="flex flex-col justify-between gap-2.5">
+              <div class="flex items-baseline justify-between border-b border-line pb-1.5">
+                <span class="text-[28px] font-bold text-navy leading-none">H1 · วางแผน 4 ปีที่ SIT</span>
+                <span class="font-mono text-[11px] text-muted">44px / Bold</span>
+              </div>
+              <div class="flex items-baseline justify-between border-b border-line pb-1.5">
+                <span class="text-[21px] font-semibold text-navy leading-none">H2 · Course Guide</span>
+                <span class="font-mono text-[11px] text-muted">30px / SemiBold</span>
+              </div>
+              <div class="flex items-baseline justify-between border-b border-line pb-1.5">
+                <span class="text-[17px] font-semibold text-navy leading-none">H3 · Year 3 · Term 1</span>
+                <span class="font-mono text-[11px] text-muted">22px / SemiBold</span>
+              </div>
+              <div class="flex items-baseline justify-between">
+                <span class="text-[14px] text-muted">Body · เนื้อหาและคำอธิบายรายวิชา (line-height 1.7)</span>
+                <span class="font-mono text-[11px] text-muted">16px / Regular</span>
+              </div>
+            </div>
+            <div class="flex flex-col justify-between rounded-xl border border-line bg-ice p-4">
+              <div class="font-mono text-[11px] font-semibold uppercase tracking-wider text-ocean">Monospace (Code & Credits)</div>
+              <div class="font-mono text-[22px] font-bold text-navy">INT101 · 3 (3-0-6)</div>
+              <div class="font-mono text-[13px] text-muted">128 Credits · Y3 T2</div>
+              <div class="text-[12px] text-steel">ใช้กับรหัสวิชา, หน่วยกิต และตัวเลขสถิติ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Border + Radius + Spacing + Shadow -->
+      <div class="flex flex-col gap-5">
+        <!-- Border Table (matching slide 1 reference) -->
+        <div class="rounded-2xl border border-line bg-white p-6 shadow-sm">
+          <div class="mb-3 flex items-center justify-between">
+            <h2 class="text-[18px] font-bold tracking-wide text-navy">BORDER</h2>
+            <span class="font-mono text-[12px] text-muted">Stroke Scale</span>
+          </div>
+          <div class="grid grid-cols-[90px_1fr_140px] border-b border-line pb-2 text-[12px] font-semibold text-muted">
+            <span>Size</span><span>Preview</span><span class="text-right">Token / Usage</span>
+          </div>
+          <div class="divide-y divide-line/80">
+            <div class="grid grid-cols-[90px_1fr_140px] items-center py-2.5">
+              <span class="font-mono text-[13px] text-navy">0 px</span>
+              <div class="h-9 w-16 rounded-lg bg-ice"></div>
+              <span class="text-right font-mono text-[12px] text-muted">border-0 · Chips</span>
+            </div>
+            <div class="grid grid-cols-[90px_1fr_140px] items-center py-2.5">
+              <span class="font-mono text-[13px] text-navy">1 px</span>
+              <div class="h-9 w-16 rounded-lg border border-ocean bg-white"></div>
+              <span class="text-right font-mono text-[12px] text-muted">border-1 · Cards</span>
+            </div>
+            <div class="grid grid-cols-[90px_1fr_140px] items-center py-2.5">
+              <span class="font-mono text-[13px] text-navy">2 px</span>
+              <div class="h-9 w-16 rounded-lg border-2 border-steel bg-white"></div>
+              <span class="text-right font-mono text-[12px] text-muted">border-2 · Focus</span>
+            </div>
+            <div class="grid grid-cols-[90px_1fr_140px] items-center py-2.5">
+              <span class="font-mono text-[13px] text-navy">3 px</span>
+              <div class="h-9 w-16 rounded-lg border-t-[3px] border border-line border-t-brandOrange bg-white"></div>
+              <span class="text-right font-mono text-[12px] text-muted">border-t-3 · Accent</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacing, Radius & Shadow -->
+        <div class="grid flex-1 grid-cols-2 gap-5">
+          <!-- Radius & Shadow -->
+          <div class="flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-sm">
+            <h2 class="text-[16px] font-bold tracking-wide text-navy">RADIUS &amp; SHADOW</h2>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+              <div class="flex flex-col items-center gap-1.5 rounded-xl bg-ice p-2.5">
+                <div class="h-10 w-10 rounded-lg border border-ocean bg-white shadow-sm"></div>
+                <span class="font-mono text-[11px] font-semibold text-navy">8px · lg</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 rounded-xl bg-ice p-2.5">
+                <div class="h-10 w-10 rounded-xl border border-ocean bg-white shadow-md"></div>
+                <span class="font-mono text-[11px] font-semibold text-navy">12px · xl</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 rounded-xl bg-ice p-2.5">
+                <div class="h-10 w-10 rounded-2xl border border-ocean bg-white shadow-lg"></div>
+                <span class="font-mono text-[11px] font-semibold text-navy">16px · 2xl</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5 rounded-xl bg-ice p-2.5">
+                <div class="h-10 w-10 rounded-full border border-ocean bg-white shadow-xl"></div>
+                <span class="font-mono text-[11px] font-semibold text-navy">Full · Pill</span>
+              </div>
+            </div>
+            <p class="mt-2 text-[11px] text-muted">Elevation: <code class="font-mono text-navy">sm</code> Card · <code class="font-mono text-navy">lg</code> Hover · <code class="font-mono text-navy">2xl</code> Modal</p>
+          </div>
+
+          <!-- Spacing & Motion -->
+          <div class="flex flex-col justify-between rounded-2xl border border-line bg-white p-5 shadow-sm">
+            <h2 class="text-[16px] font-bold tracking-wide text-navy">SPACING &amp; MOTION</h2>
+            <div class="mt-2 flex flex-col gap-2">
+              <div class="flex items-center gap-3"><span class="w-10 font-mono text-[11px] text-muted">8px</span><div class="h-3 w-4 rounded bg-mint border border-ocean/40"></div><span class="text-[11px] text-navy">Inline gap</span></div>
+              <div class="flex items-center gap-3"><span class="w-10 font-mono text-[11px] text-muted">16px</span><div class="h-3 w-8 rounded bg-mint border border-ocean/40"></div><span class="text-[11px] text-navy">Card inner</span></div>
+              <div class="flex items-center gap-3"><span class="w-10 font-mono text-[11px] text-muted">24px</span><div class="h-3 w-12 rounded bg-ocean/60"></div><span class="text-[11px] text-navy">Section gap</span></div>
+              <div class="flex items-center gap-3"><span class="w-10 font-mono text-[11px] text-muted">44px</span><div class="h-3 w-20 rounded bg-steel"></div><span class="text-[11px] text-navy">Min Tap Target</span></div>
+            </div>
+            <div class="mt-3 rounded-lg bg-ice px-3 py-2 font-mono text-[10.5px] text-steel">
+              expo: (0.16, 1, 0.3, 1)<br/>
+              spring: (0.34, 1.56, 0.64, 1)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       SLIDE 2: COMPONENT DESIGN SYSTEM — FULL STICKER SHEET OVERVIEW
+       ===================================================================== -->
+  <section id="slide-2" class="slide">
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="font-mono text-[13px] font-semibold uppercase tracking-[0.16em] text-ocean">SIT HERO · UI KIT OVERVIEW</p>
+        <h1 class="mt-1 text-[40px] font-extrabold tracking-tight text-navy leading-none">COMPONENT DESIGN SYSTEM</h1>
+      </div>
+      <div class="rounded-full border border-line bg-white px-4 py-1.5 font-mono text-[12px] font-semibold text-steel shadow-sm">
+        8 Component Groups · 5 Core Modules
+      </div>
+    </div>
+
+    <!-- Sticker Sheet Grid -->
+    <div class="mt-5 grid flex-1 grid-cols-12 grid-rows-6 gap-4">
+
+      <!-- 1. Navigation Bar (Top, Col 1-8, Row 1-2) -->
+      <div class="figma-box col-span-8 row-span-2 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ocean">01 · Navigation &amp; Breadcrumb</span>
+          <span class="text-[11px] text-muted">Frosted Glass · Sliding Active Pill · Scroll Progress</span>
+        </div>
+        <!-- Desktop Navbar Mock -->
+        <div class="overflow-hidden rounded-xl bg-navy text-white shadow-sm">
+          <div class="flex h-12 items-center justify-between px-5">
+            <div class="flex items-center gap-2">
+              <svg width="28" height="20" viewBox="0 4 120 76" fill="none">
+                <path d="M31 35 C27 49 17 61 5 67.5 C7.5 69.5 11.5 72 13 73.5 C12.5 71.5 14 70 16.5 68.5 C24.5 62.5 31.5 50.5 32.5 37.5 Z" fill="#38BDF8"/>
+                <path d="M89 35 C93 49 103 61 115 67.5 C112.5 69.5 108.5 72 107 73.5 C107.5 71.5 106 70 103.5 68.5 C95.5 62.5 88.5 50.5 87.5 37.5 Z" fill="#38BDF8"/>
+                <rect x="40" y="24" width="9" height="42" rx="2.5" fill="#7DD3FC"/>
+                <rect x="27" y="62" width="33" height="9" rx="3" fill="#38BDF8"/>
+                <rect x="71" y="24" width="9.5" height="47" rx="2.5" fill="#7DD3FC"/>
+                <path d="M22 28.5 L60 11 L60 21.5 L24.5 36.5 C22.5 37.3 20.5 35.8 20.5 33.7 L20.5 31 Z" fill="#7DD3FC"/>
+                <path d="M98 28.5 L60 11 L60 21.5 L95.5 36.5 C97.5 37.3 99.5 35.8 99.5 33.7 L99.5 31 Z" fill="#0EA5E9"/>
+              </svg>
+              <span class="text-[14px] font-bold">SIT Hero</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[12px]">
+              <span class="px-2.5 py-1 text-white/75">Home</span>
+              <span class="relative rounded-lg bg-steel px-3 py-1 font-semibold text-white ring-1 ring-white/15">
+                Course Guide
+                <span class="absolute bottom-0.5 left-2.5 right-2.5 h-[2px] rounded-full bg-mint"></span>
+              </span>
+              <span class="px-2.5 py-1 text-white/75">Community</span>
+              <span class="px-2.5 py-1 text-white/75">Knowledge</span>
+              <span class="px-2.5 py-1 text-white/75">Autobot</span>
+              <span class="ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-mint text-[11px] font-bold text-navy ring-2 ring-ocean">N</span>
+            </div>
+          </div>
+          <div class="h-[2.5px] w-full bg-white/10"><div class="h-full w-2/3 bg-gradient-to-r from-mint via-ocean to-brandOrange"></div></div>
+        </div>
+        <!-- Breadcrumb + Mobile Bar -->
+        <div class="flex items-center justify-between gap-4">
+          <div class="inline-flex items-center gap-1.5 rounded-lg bg-ice px-3 py-1.5 text-[12px] font-medium text-steel">
+            ← Home <span class="text-muted/60">/</span> <span class="text-navy">Course Guide</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="rounded-full bg-mint px-3 py-1 font-mono text-[11px] font-semibold text-navy">INT101</span>
+            <span class="rounded-full border border-sky-200 bg-sky-100 px-3 py-1 font-mono text-[11px] font-semibold text-sky-900">GEN121</span>
+            <span class="rounded-full border border-amber-200 bg-amber-100 px-3 py-1 font-mono text-[11px] font-semibold text-amber-900">LNG220</span>
+            <span class="rounded-full border border-purple-200 bg-purple-100 px-3 py-1 font-mono text-[11px] font-semibold text-purple-900">XXX xxx</span>
+            <span class="rounded-full border border-orange-200 bg-orange-100 px-3 py-1 font-mono text-[11px] font-semibold text-orange-900">หมวด 2.2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Buttons & Controls (Col 9-12, Row 1-3) -->
+      <div class="figma-box col-span-4 row-span-3 flex flex-col justify-between">
+        <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ocean">02 · Buttons &amp; Form Inputs</span>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="flex h-10 items-center justify-center rounded-xl bg-brandOrange text-[12px] font-semibold text-white shadow-sm">Primary CTA →</div>
+          <div class="flex h-10 items-center justify-center rounded-xl bg-steel text-[12px] font-semibold text-white shadow-sm">+ New Post</div>
+          <div class="flex h-10 items-center justify-center rounded-xl border border-line bg-white text-[12px] font-medium text-navy">Ghost Button</div>
+          <div class="flex h-10 items-center justify-center rounded-xl bg-danger text-[12px] font-semibold text-white">Delete</div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <div class="flex h-10 items-center gap-2 rounded-xl border border-line bg-white px-3 text-[12px] text-muted">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A8FA3" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Search course code or title...</span>
+          </div>
+          <div class="flex h-10 items-center justify-between rounded-xl border-2 border-ocean bg-white px-3 text-[12px] font-medium text-navy shadow-[0_0_0_3px_rgba(90,143,163,0.18)]">
+            <span>AI Developer (7 วิชา 18 หน่วยกิต)</span>
+            <span class="text-ocean">▾</span>
+          </div>
+          <div class="flex h-10 items-center justify-between rounded-xl border border-line bg-ice px-3 text-[12px] text-muted">
+            <span>ยังไม่ต้องเลือกสายในเทอมนี้ (Disabled)</span>
+            <span>▾</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-1">
+          <div class="inline-flex overflow-hidden rounded-lg border border-line text-[11px] font-medium">
+            <span class="bg-steel px-3 py-1.5 text-white">Recently Added</span>
+            <span class="bg-white px-3 py-1.5 text-navy">Most Liked</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-mint text-steel">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </span>
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-mint text-steel">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Course Accordion & Credit Bar (Col 1-4, Row 3-6) -->
+      <div class="figma-box col-span-4 row-span-4 flex flex-col justify-between">
+        <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ocean">03 · Course Guide Cards</span>
+        <!-- Credit Bar -->
+        <div class="rounded-xl border border-line bg-white p-3.5 shadow-sm">
+          <div class="flex items-baseline justify-between">
+            <span class="text-[14px] font-bold text-navy">Year 3 · Term 1</span>
+            <span class="text-[11px] text-muted">9 วิชา · <b class="font-mono text-navy">18</b> นก.</span>
+          </div>
+          <div class="mt-2 flex h-2 overflow-hidden rounded-full bg-ice">
+            <div class="w-[28%] bg-steel"></div>
+            <div class="w-[33%] bg-brandOrange"></div>
+            <div class="w-[39%] bg-ocean/60"></div>
+          </div>
+          <div class="mt-2 flex gap-3 text-[10px] text-muted">
+            <span class="flex items-center gap-1"><i class="inline-block h-2 w-2 rounded-full bg-steel"></i>Core (5)</span>
+            <span class="flex items-center gap-1"><i class="inline-block h-2 w-2 rounded-full bg-brandOrange"></i>Track (6)</span>
+            <span class="flex items-center gap-1"><i class="inline-block h-2 w-2 rounded-full bg-ocean/60"></i>GenEd (7)</span>
+          </div>
+        </div>
+        <!-- Expanded Accordion -->
+        <div class="overflow-hidden rounded-xl border border-ocean bg-white shadow-sm">
+          <div class="flex items-center justify-between bg-mint/60 px-3.5 py-2.5">
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-mint px-2.5 py-0.5 font-mono text-[11px] font-semibold text-navy">INT271</span>
+              <span class="text-[13px] font-semibold text-navy">Machine Learning</span>
+            </div>
+            <span class="font-mono text-[11px] text-muted">3 (2-2-5) ▴</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 p-3 text-[11px]">
+            <div class="rounded-lg border border-line bg-ice p-2.5">
+              <div class="font-semibold text-ocean">วิชานี้เรียนอะไร</div>
+              <div class="mt-0.5 text-navy">Supervised / Unsupervised ML &amp; Model Eval</div>
+            </div>
+            <div class="rounded-lg border border-line bg-ice p-2.5">
+              <div class="font-semibold text-ocean">สำคัญยังไง</div>
+              <div class="mt-0.5 text-navy">สร้างโมเดลทำนายผลจากข้อมูลจริง</div>
+            </div>
+          </div>
+        </div>
+        <!-- Professor Jiewliew Notice -->
+        <div class="flex items-center gap-3 rounded-xl border border-ocean/40 bg-mint px-3.5 py-2.5">
+          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-navy text-[12px] font-bold text-mint">PJ</div>
+          <div class="min-w-0 text-[11px]">
+            <div class="font-bold text-navy">Professor Jiewliew</div>
+            <div class="truncate text-navy/80">ตั้งแต่ปี 2 เทอม 2 เลือก 9 สายอาชีพได้เลย</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Community Post & Knowledge Note Cards (Col 5-8, Row 3-6) -->
+      <div class="figma-box col-span-4 row-span-4 flex flex-col justify-between">
+        <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ocean">04 · Community &amp; Knowledge Vault</span>
+        <!-- Post Card -->
+        <div class="rounded-xl border border-line bg-white p-3.5 shadow-sm">
+          <div class="flex items-center gap-2.5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-steel text-[12px] font-bold text-white">N</span>
+            <div>
+              <div class="text-[12px] font-semibold text-navy">Napat K. <span class="ml-1 rounded-full bg-mint px-1.5 py-0.5 text-[10px]">2h ago</span></div>
+            </div>
+          </div>
+          <div class="mt-2 text-[13px] font-bold text-navy">ปี 1 เทอม 1 INT101 ควรฝึกทำโจทย์เรื่องไหน?</div>
+          <div class="mt-2 flex items-center justify-between border-t border-line pt-2 text-[11px] text-muted">
+            <div class="flex gap-2">
+              <span class="rounded-full bg-mint px-2 py-0.5 font-medium text-steel">♥ 24</span>
+              <span>💬 3</span>
+            </div>
+            <span class="rounded-full bg-mint/70 px-2 py-0.5 text-[10px] font-semibold text-navy">#INT101</span>
+          </div>
+        </div>
+        <!-- Knowledge Note + Folder -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-xl border border-line border-t-[3px] border-t-emerald-400 bg-white p-3 shadow-sm">
+            <span class="rounded-full bg-mint px-2 py-0.5 font-mono text-[10px] font-semibold text-navy">INT101</span>
+            <div class="mt-2 text-[12px] font-bold leading-snug text-navy">Midterm Logic &amp; Proofs</div>
+            <div class="mt-2 flex items-center justify-between border-t border-line pt-2 text-[10px]">
+              <span class="rounded bg-mint px-1.5 py-0.5 font-mono font-semibold text-navy">Y1 T1</span>
+              <span class="font-semibold text-steel">10 หน้า · พรีวิว</span>
+            </div>
+          </div>
+          <div class="rounded-xl border border-line border-t-[3px] border-t-brandOrange bg-white p-3 shadow-sm">
+            <span class="rounded-full bg-mint px-2 py-0.5 font-mono text-[10px] font-semibold text-navy">INT241</span>
+            <div class="mt-2 text-[12px] font-bold leading-snug text-navy">Data Structures &amp; Big-O</div>
+            <div class="mt-2 flex items-center justify-between border-t border-line pt-2 text-[10px]">
+              <span class="rounded bg-brandOrangeLight px-1.5 py-0.5 font-mono font-semibold text-brandOrange">Y3 T2</span>
+              <span class="font-semibold text-steel">14 หน้า · พรีวิว</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Autobot, Modal & Toast (Col 9-12, Row 4-6) -->
+      <div class="figma-box col-span-4 row-span-3 flex flex-col justify-between">
+        <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-ocean">05 · Autobot, Modal &amp; Feedback</span>
+        <!-- Autobot Bubble -->
+        <div class="overflow-hidden rounded-xl border border-line bg-white shadow-sm">
+          <div class="flex items-center gap-2 bg-navy px-3.5 py-2 text-white">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+            <span class="text-[12px] font-semibold">ผู้ช่วยตอบคำถาม SIT Hero</span>
+          </div>
+          <div class="flex flex-col gap-2 bg-ice p-3 text-[11px]">
+            <div class="self-end rounded-xl rounded-br-sm bg-steel px-3 py-1.5 text-white">เลือก Track สายอาชีพไหนดี?</div>
+            <div class="self-start rounded-xl rounded-tl-sm border border-line bg-white px-3 py-1.5 text-navy">ตั้งแต่ปี 2 เทอม 2 มีให้เลือก 9 สายอาชีพครับ</div>
+          </div>
+        </div>
+        <!-- Toast Pill -->
+        <div class="flex items-center justify-between gap-3">
+          <div class="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-[12px] font-medium text-white shadow-md">
+            <span class="text-mint">✓</span> Profile saved
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-navy text-[11px] font-bold text-mint">N</span>
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-ocean text-[11px] font-bold text-white">P</span>
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-mint text-[11px] font-bold text-navy">K</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       SLIDE 3: KEY COMPONENTS — ANATOMY & INTERACTIVE STATES (Zoom-In)
+       ===================================================================== -->
+  <section id="slide-3" class="slide">
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="font-mono text-[13px] font-semibold uppercase tracking-[0.16em] text-ocean">SIT HERO · COMPONENT ANATOMY &amp; STATES</p>
+        <h1 class="mt-1 text-[40px] font-extrabold tracking-tight text-navy leading-none">COMPONENT</h1>
+      </div>
+      <span class="rounded-full border border-brandOrangeBorder bg-brandOrangeLight px-4 py-1.5 font-mono text-[12px] font-bold text-brandOrange">
+        Interactive States · Desktop &amp; Mobile
+      </span>
+    </div>
+
+    <!-- 3-Column Spotlight Layout (inspired by Slide 3 reference) -->
+    <div class="mt-6 grid flex-1 grid-cols-[0.95fr_1.15fr_0.95fr] gap-6">
+
+      <!-- Column 1: Search & Filter + Toast Notifications -->
+      <div class="flex flex-col gap-5">
+        <div>
+          <h2 class="mb-2.5 text-[15px] font-bold uppercase tracking-wider text-steel">SEARCH &amp; FILTER BAR</h2>
+          <div class="figma-box flex flex-col gap-3">
+            <!-- Default -->
+            <div>
+              <div class="mb-1 font-mono text-[10px] text-muted">DEFAULT STATE</div>
+              <div class="flex h-11 items-center gap-2.5 rounded-xl border border-line bg-white px-3.5 text-[13px] text-muted">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5A8FA3" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span>Search course code or title...</span>
+              </div>
+            </div>
+            <!-- Focused / Typing -->
+            <div>
+              <div class="mb-1 font-mono text-[10px] text-ocean">FOCUS / TYPING STATE</div>
+              <div class="flex h-11 items-center justify-between rounded-xl border-2 border-ocean bg-white px-3.5 text-[13px] font-medium text-navy shadow-[0_0_0_3px_rgba(90,143,163,0.2)]">
+                <div class="flex items-center gap-2.5">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5A8FA3" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                  <span>INT101 Discrete</span>
+                </div>
+                <span class="flex h-5 w-5 items-center justify-center rounded-full bg-ice text-[11px] text-muted">✕</span>
+              </div>
+            </div>
+            <!-- Filter Pills -->
+            <div>
+              <div class="mb-1 font-mono text-[10px] text-muted">CATEGORY FILTER STATES</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-xl bg-navy px-3.5 py-2 text-[12px] font-semibold text-white">All Subjects</span>
+                <span class="rounded-xl border border-line bg-white px-3.5 py-2 text-[12px] font-medium text-muted">IT Core &amp; Track</span>
+                <span class="rounded-xl border border-line bg-white px-3.5 py-2 text-[12px] font-medium text-muted">GenEd</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col">
+          <h2 class="mb-2.5 text-[15px] font-bold uppercase tracking-wider text-steel">TOAST &amp; ALERT BOX</h2>
+          <div class="figma-box flex flex-1 flex-col justify-center gap-3.5">
+            <div class="flex items-center justify-between rounded-full border border-white/15 bg-navy px-5 py-3 text-[13px] font-medium text-white shadow-lg">
+              <span class="flex items-center gap-2"><span class="font-bold text-mint">✓</span> บันทึกเข้าโฟลเดอร์ INT101 แล้ว</span>
+              <span class="font-mono text-[11px] text-mint">2.6s</span>
+            </div>
+            <div class="flex items-center justify-between rounded-full border border-white/15 bg-navy px-5 py-3 text-[13px] font-medium text-white shadow-lg">
+              <span class="flex items-center gap-2"><span class="font-bold text-mint">✓</span> ตั้งกระทู้เรียบร้อยแล้ว!</span>
+              <span class="font-mono text-[11px] text-mint">Toast</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-xl border border-ocean/40 bg-mint px-4 py-3 text-navy">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-navy text-[12px] font-bold text-mint">PJ</span>
+              <div class="text-[12px]">
+                <div class="font-bold">Professor Jiewliew Alert</div>
+                <div class="text-navy/80">แสดงอัตโนมัติเมื่อเลือกปี 2 เทอม 2 ขึ้นไป</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Course Accordion Card (Collapsed + Expanded) -->
+      <div class="flex flex-col">
+        <h2 class="mb-2.5 text-[15px] font-bold uppercase tracking-wider text-steel">COURSE ACCORDION CARD</h2>
+        <div class="figma-box flex flex-1 flex-col justify-between gap-4">
+          <!-- Collapsed State -->
+          <div>
+            <div class="mb-1.5 flex items-center justify-between font-mono text-[10px] text-muted">
+              <span>STATE: COLLAPSED (DEFAULT)</span>
+              <span>HOVER LIFT + CHEVRON</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-xl border border-line bg-white px-4 py-3.5 shadow-sm">
+              <span class="rounded-full bg-mint px-3 py-1 font-mono text-[12px] font-semibold text-navy">INT101</span>
+              <span class="flex-1 text-[15px] font-semibold text-navy">Discrete Mathematics</span>
+              <span class="font-mono text-[12px] text-muted">3 (3-0-6)</span>
+              <span class="text-ocean">▾</span>
+            </div>
+          </div>
+
+          <!-- Expanded State -->
+          <div class="flex-1 flex flex-col">
+            <div class="mb-1.5 flex items-center justify-between font-mono text-[10px] text-ocean">
+              <span>STATE: EXPANDED (2-WAY CSS GRID ACCORDION)</span>
+              <span>ROTATE 180°</span>
+            </div>
+            <div class="flex flex-1 flex-col overflow-hidden rounded-xl border border-ocean bg-white ring-1 ring-ocean/20 shadow-md">
+              <div class="flex items-center gap-3 bg-mint/60 px-4 py-3.5">
+                <span class="rounded-full bg-mint px-3 py-1 font-mono text-[12px] font-semibold text-navy">INT271</span>
+                <span class="flex-1 text-[15px] font-semibold text-navy">Machine Learning</span>
+                <span class="rounded-full border border-ocean bg-white px-2.5 py-0.5 text-[11px] font-semibold text-steel">Track Elective</span>
+                <span class="font-mono text-[12px] text-muted">3 (2-2-5)</span>
+                <span class="text-ocean">▴</span>
+              </div>
+              <div class="flex flex-1 flex-col justify-between border-t border-line p-4">
+                <div class="mb-3 flex items-center justify-between">
+                  <span class="text-[12px] font-medium text-muted">หมวดวิชาเลือกเฉพาะสายอาชีพ (AI Developer)</span>
+                  <span class="rounded-full bg-mint px-3 py-0.5 font-mono text-[12px] font-semibold text-navy">3 (2-2-5)</span>
+                </div>
+                <div class="grid flex-1 grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-line bg-ice p-3.5">
+                    <div class="mb-1 text-[12px] font-bold text-ocean">วิชานี้เรียนอะไร</div>
+                    <p class="text-[13px] leading-relaxed text-navy">ทฤษฎีและอัลกอริทึม Supervised &amp; Unsupervised Learning, Feature Engineering และการวัดผลโมเดล</p>
+                  </div>
+                  <div class="rounded-xl border border-line bg-ice p-3.5">
+                    <div class="mb-1 text-[12px] font-bold text-ocean">สำคัญยังไง / ต่อยอดอะไรได้</div>
+                    <p class="text-[13px] leading-relaxed text-navy">สร้างโมเดลที่เรียนรู้จากข้อมูลเพื่อทำนายผลลัพธ์และต่อยอดสู่ Deep Learning (INT272)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Responsive Variant -->
+          <div>
+            <div class="mb-1.5 font-mono text-[10px] text-muted">RESPONSIVE VARIANT: MOBILE (390PX — 2-ROW STACK)</div>
+            <div class="rounded-xl border border-line bg-white px-4 py-3 shadow-sm">
+              <div class="flex items-center gap-2">
+                <span class="rounded-full border border-sky-200 bg-sky-100 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-sky-900">GEN121</span>
+                <span class="rounded-full border border-line bg-ice px-2 py-0.5 text-[11px] font-medium text-muted">GenEd</span>
+                <span class="ml-auto font-mono text-[11px] text-muted">3 (3-0-6) ▾</span>
+              </div>
+              <div class="mt-1.5 text-[14px] font-semibold text-navy">Learning and Problem Solving Skills</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Credit Breakdown Bar + Knowledge Note Card -->
+      <div class="flex flex-col gap-5">
+        <div>
+          <h2 class="mb-2.5 text-[15px] font-bold uppercase tracking-wider text-steel">CREDIT BREAKDOWN BAR</h2>
+          <div class="figma-box flex flex-col gap-3">
+            <div class="rounded-xl border border-line bg-white p-4 shadow-sm">
+              <div class="flex items-baseline justify-between">
+                <span class="text-[16px] font-bold text-navy">Year 3 · Term 1</span>
+                <span class="text-[12px] text-muted">รวม <b class="font-mono text-[14px] text-navy">18</b> นก.</span>
+              </div>
+              <div class="mt-3 flex h-2.5 overflow-hidden rounded-full bg-ice">
+                <div class="w-[28%] bg-steel"></div>
+                <div class="w-[33%] bg-brandOrange"></div>
+                <div class="w-[39%] bg-ocean/60"></div>
+              </div>
+              <div class="mt-3 flex flex-col gap-1.5 text-[12px] text-muted">
+                <div class="flex items-center justify-between"><span class="flex items-center gap-2"><i class="inline-block h-2.5 w-2.5 rounded-full bg-steel"></i>IT Core</span><span class="font-mono font-semibold text-navy">5 นก. (28%)</span></div>
+                <div class="flex items-center justify-between"><span class="flex items-center gap-2"><i class="inline-block h-2.5 w-2.5 rounded-full bg-brandOrange"></i>Track Elective (AI)</span><span class="font-mono font-semibold text-navy">6 นก. (33%)</span></div>
+                <div class="flex items-center justify-between"><span class="flex items-center gap-2"><i class="inline-block h-2.5 w-2.5 rounded-full bg-ocean/60"></i>GenEd / LNG / Free</span><span class="font-mono font-semibold text-navy">7 นก. (39%)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col">
+          <h2 class="mb-2.5 text-[15px] font-bold uppercase tracking-wider text-steel">KNOWLEDGE NOTE CARD</h2>
+          <div class="figma-box flex flex-1 flex-col justify-between gap-3">
+            <!-- Saved Card -->
+            <div class="rounded-xl border border-line border-t-[3px] border-t-emerald-400 bg-white p-4 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-mint px-3 py-0.5 font-mono text-[12px] font-semibold text-navy">INT101</span>
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-mint/70 text-steel">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                </span>
+              </div>
+              <div class="mt-2 text-[15px] font-bold text-navy leading-snug">Midterm Summary Notes — Logic, Sets &amp; Proofs</div>
+              <div class="mt-1 text-[12px] text-muted">โดย พี่ต้นกล้า IT#29</div>
+              <div class="mt-3 flex items-center justify-between border-t border-line pt-2.5">
+                <span class="rounded-md bg-mint px-2 py-0.5 font-mono text-[11px] font-semibold text-navy">Y1 T1</span>
+                <span class="inline-flex items-center gap-1.5 rounded-lg bg-ice px-2.5 py-1 text-[12px] font-semibold text-steel">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                  10 หน้า · อ่านพรีวิว
+                </span>
+              </div>
+            </div>
+            <!-- Saved Folder Card -->
+            <div class="flex items-center justify-between rounded-xl border border-line border-t-[3px] border-t-ocean bg-white px-4 py-3 shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-mint text-steel">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                </span>
+                <div>
+                  <div class="font-mono text-[15px] font-bold text-navy leading-tight">INT101 Folder</div>
+                  <div class="text-[11px] text-muted">My Saved · 3 saved notes</div>
+                </div>
+              </div>
+              <span class="font-mono text-[11px] font-semibold text-ocean">เปิดโฟลเดอร์ →</span>
+            </div>
+            <!-- Year Color Coding Legend -->
+            <div class="flex items-center justify-between rounded-xl bg-white px-3.5 py-2.5 border border-line text-[11px] font-mono">
+              <span class="flex items-center gap-1.5 font-semibold text-navy"><i class="inline-block h-2.5 w-2.5 rounded-sm bg-emerald-400"></i>Y1 T1</span>
+              <span class="flex items-center gap-1.5 font-semibold text-sky-900"><i class="inline-block h-2.5 w-2.5 rounded-sm bg-sky-400"></i>Y1 T2</span>
+              <span class="flex items-center gap-1.5 font-semibold text-indigo-900"><i class="inline-block h-2.5 w-2.5 rounded-sm bg-indigo-400"></i>Y2</span>
+              <span class="flex items-center gap-1.5 font-semibold text-brandOrange"><i class="inline-block h-2.5 w-2.5 rounded-sm bg-brandOrange"></i>Y3–4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
