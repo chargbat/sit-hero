@@ -255,7 +255,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           h(
             "div",
             { className: "flex items-center justify-between border-b border-line pb-4" },
-            h("span", { className: "font-mono text-[13px] font-semibold text-ocean" }, "SIT KMUTT STUDY DIGEST · " + note.code),
+            h("span", { className: "font-mono text-[13px] font-semibold text-ocean" }, "IT KMUTT STUDY DIGEST · " + note.code),
             h("span", { className: "font-mono text-[13px] text-muted" }, "Pages " + page + " / " + total)
           ),
           h("h3", { className: "mt-5 t-h3 text-navy" }, note.title + " (หน้าที่ " + page + ")"),
@@ -606,7 +606,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       null,
       h(PageHeader, {
         title: "Knowledge Vault",
-        sub: "คลังชีทสรุปและเอกสารประกอบการเรียน SIT KMUTT",
+        sub: "คลังชีทสรุปและเอกสารประกอบการเรียน IT KMUTT",
         right: h(
           "button",
           {

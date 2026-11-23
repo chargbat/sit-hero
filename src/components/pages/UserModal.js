@@ -91,7 +91,7 @@ window.ITHeroPages = window.ITHeroPages || {};
           "div",
           { className: "flex items-center gap-2.5" },
           h("span", { className: "h-2.5 w-2.5 rounded-full bg-mint" }),
-          h("span", { className: "text-[14px] font-semibold tracking-wide text-mint/95" }, edit ? "Edit Profile" : "SIT Student Profile")
+          h("span", { className: "text-[14px] font-semibold tracking-wide text-mint/95" }, edit ? "Edit Profile" : "IT Student Profile")
         ),
         h(
           "button",

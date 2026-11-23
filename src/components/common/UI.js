@@ -240,7 +240,7 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           fill: "none",
           className: "brand-logo-svg overflow-visible",
           role: "img",
-          "aria-label": "SIT Hero Logo"
+          "aria-label": "IT Hero Logo"
         },
         h(
           "defs",

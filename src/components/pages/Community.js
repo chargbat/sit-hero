@@ -652,7 +652,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       null,
       h(PageHeader, {
         title: "Community",
-        sub: "พื้นที่ถาม-ตอบและแลกเปลี่ยนเรียนรู้ของชาว SIT",
+        sub: "พื้นที่ถาม-ตอบและแลกเปลี่ยนเรียนรู้ของชาว IT KMUTT",
         right: h(
           "button",
           {

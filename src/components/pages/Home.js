@@ -38,7 +38,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       "course",
       "Course Guide",
       "book",
-      "เช็กรายวิชาตามแผนการเรียน SIT ปี 1–4 ดูสรุปเนื้อหา เหตุผลที่ต้องเรียน และเทียบวิชาเลือกทั้ง 9 สายอาชีพ",
+      "เช็กรายวิชาตามแผนการเรียน IT KMUTT ปี 1–4 ดูสรุปเนื้อหา เหตุผลที่ต้องเรียน และเทียบวิชาเลือกทั้ง 9 สายอาชีพ",
       "ดูแผนการเรียน"
     ],
     [
@@ -97,9 +97,9 @@ window.ITHeroPages = window.ITHeroPages || {};
             h(
               "p",
               { className: "mb-2.5 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-ocean" },
-              "SIT KMUTT · B.Sc. Information Technology (หลักสูตร 2567)"
+              "IT KMUTT · B.Sc. Information Technology (หลักสูตร 2567)"
             ),
-            h("h1", { className: "t-h1 text-navy" }, "วางแผน 4 ปีที่ SIT ให้ชัด ตั้งแต่วันแรก"),
+            h("h1", { className: "t-h1 text-navy" }, "วางแผน 4 ปีที่ IT ให้ชัด ตั้งแต่วันแรก"),
             h(
               "p",
               { className: cx("mt-4 text-muted leading-relaxed", !mobile && "max-w-[700px]") },

@@ -57,7 +57,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       null,
       h(PageHeader, {
         title: "Course Guide",
-        sub: "หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ (SIT KMUTT)"
+        sub: "หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ (IT KMUTT)"
       }),
 
       /* Pop-up แจ้งเตือนจาก Professor Jiewliew เมื่อเลือก ปี 2 เทอม 2 ขึ้นไป */

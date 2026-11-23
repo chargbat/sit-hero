@@ -93,7 +93,7 @@ window.ITHeroPages = window.ITHeroPages || {};
     function answerFor(key, raw) {
       if (key === "general") {
         return {
-          text: "ถามเรื่องการวางแผนการเรียน การเตรียมสอบ การเลือก Track หรือชีวิตในรั้ว SIT KMUTT ได้เลยครับ เลือกคำถามด้านล่างหรือพิมพ์ถามในช่องแชตได้เลย!",
+          text: "ถามเรื่องการวางแผนการเรียน การเตรียมสอบ การเลือก Track หรือชีวิตในรั้ว IT KMUTT ได้เลยครับ เลือกคำถามด้านล่างหรือพิมพ์ถามในช่องแชตได้เลย!",
           chips: TOP_QUESTIONS.slice(0, 3)
         };
       }
@@ -106,12 +106,12 @@ window.ITHeroPages = window.ITHeroPages || {};
       }
       if (key === "admin") {
         return {
-          text: "ต้องการติดต่อทีมงานแอดมิน SIT Hero? สามารถส่งอีเมลมาได้ที่ sithero.admin@mail.kmutt.ac.th พร้อมแจ้งรหัสนักศึกษาและเรื่องที่ต้องการให้ช่วยเหลือ ทีมงานจะตอบกลับภายใน 1–2 วันทำการครับ"
+          text: "ต้องการติดต่อทีมงานแอดมิน IT Hero? สามารถส่งอีเมลมาได้ที่ ithero.admin@mail.kmutt.ac.th พร้อมแจ้งรหัสนักศึกษาและเรื่องที่ต้องการให้ช่วยเหลือ ทีมงานจะตอบกลับภายใน 1–2 วันทำการครับ"
         };
       }
       if (key === "nav") {
         return {
-          text: "ต้องการให้พาไปที่หน้าไหนของ SIT Hero เลือกการ์ดด้านล่างได้เลยครับ:",
+          text: "ต้องการให้พาไปที่หน้าไหนของ IT Hero เลือกการ์ดด้านล่างได้เลยครับ:",
           links: ["course", "community", "knowledge", "home"]
         };
       }
@@ -183,7 +183,7 @@ window.ITHeroPages = window.ITHeroPages || {};
       null,
       h(PageHeader, {
         title: "Autobot",
-        sub: "ศูนย์รวมคำถามยอดฮิตและตัวช่วยนำทางหลักสูตร SIT KMUTT"
+        sub: "ศูนย์รวมคำถามยอดฮิตและตัวช่วยนำทางหลักสูตร IT KMUTT"
       }),
       h(
         "div",
@@ -237,7 +237,7 @@ window.ITHeroPages = window.ITHeroPages || {};
             h(
               "div",
               null,
-              h("h2", { className: "text-[18px] font-semibold" }, "ผู้ช่วยตอบคำถาม SIT Hero"),
+              h("h2", { className: "text-[18px] font-semibold" }, "ผู้ช่วยตอบคำถาม IT Hero"),
               h(
                 "p",
                 { className: "mt-0.5 flex items-center gap-1.5 text-[12px] text-mint/90" },

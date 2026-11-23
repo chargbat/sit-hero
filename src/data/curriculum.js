@@ -10,7 +10,7 @@ window.ITHeroData = window.ITHeroData || {};
 window.ITHeroData.CURRICULUM_METADATA = {
   degreeName: "วิทยาศาสตรบัณฑิต (เทคโนโลยีสารสนเทศ)",
   degreeEnglish: "Bachelor of Science (Information Technology)",
-  faculty: "คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (SIT KMUTT)",
+  faculty: "คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี (IT KMUTT)",
   totalCredits: 128,
   averageTuition: "45,100 บาท/ภาคการศึกษา (17 หน่วยกิต)",
   officialUrl: "https://www.sit.kmutt.ac.th/bsc/bsc-it-2/",
@@ -1486,7 +1486,7 @@ window.ITHeroData.coursesFor = function coursesFor(year, term, track, categoryFi
       credits: 3,
       creditDetail: "3 (x-x-x)",
       category: code.startsWith("GEN") || code.startsWith("LNG") ? "gened" : "core",
-      what: "รายละเอียดรายวิชาตามหลักสูตร SIT KMUTT",
+      what: "รายละเอียดรายวิชาตามหลักสูตร IT KMUTT",
       why: "ความสำคัญและประโยชน์ในการเรียนรู้"
     };
 

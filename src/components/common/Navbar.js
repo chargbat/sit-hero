@@ -62,13 +62,13 @@ window.ITHeroCommon = window.ITHeroCommon || {};
           go("home");
         },
         className: "btn-press flex min-h-[44px] items-center gap-2.5 rounded-xl px-1.5 text-white transition-colors hover:bg-white/5",
-        "aria-label": "SIT Hero, go to Home"
+        "aria-label": "IT Hero, go to Home"
       },
       h(BrandLogo, { size: 32, variant: "nav" }),
       h(
         "span",
         { className: "flex flex-col items-start leading-none" },
-        h("span", { className: "text-[20px] font-bold tracking-tight" }, "SIT Hero"),
+        h("span", { className: "text-[20px] font-bold tracking-tight" }, "IT Hero"),
         !mobile && h("span", { className: "mt-0.5 text-[12px] font-medium text-mint/80" }, "KMUTT · B.Sc. IT")
       )
     );

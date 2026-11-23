@@ -24,9 +24,9 @@
     const [userOpen, setUserOpen] = useState(false);
 
     /* เก็บข้อมูลลง localStorage เพื่อให้แก้ไขโปรไฟล์ ตั้งกระทู้ หรือกดเซฟชีทแล้วไม่หายเมื่อรีเฟรช */
-    const [profile, setProfile] = usePersistedState("sithero_profile_v2", DEFAULT_PROFILE);
-    const [posts, setPosts] = usePersistedState("sithero_posts_v2", SEED_POSTS);
-    const [notes, setNotes] = usePersistedState("sithero_notes_v2", SEED_NOTES);
+    const [profile, setProfile] = usePersistedState("ithero_profile_v3", DEFAULT_PROFILE);
+    const [posts, setPosts] = usePersistedState("ithero_posts_v3", SEED_POSTS);
+    const [notes, setNotes] = usePersistedState("ithero_notes_v3", SEED_NOTES);
 
     const [toastMsg, setToastMsg] = useState(null);
     const [scrollPct, setScrollPct] = useState(0);
@@ -105,8 +105,8 @@
               h(
                 "div",
                 { className: "flex flex-col gap-0.5" },
-                h("span", { className: "font-semibold text-navy" }, "SIT Hero · คู่มือการเรียน วท.บ. เทคโนโลยีสารสนเทศ (มจธ.)"),
-                h("span", null, "อ้างอิงโครงสร้างหลักสูตรปรับปรุง พ.ศ. 2567 · ข้อมูลสำหรับนักศึกษา SIT KMUTT")
+                h("span", { className: "font-semibold text-navy" }, "IT Hero · คู่มือการเรียน วท.บ. เทคโนโลยีสารสนเทศ (มจธ.)"),
+                h("span", null, "อ้างอิงโครงสร้างหลักสูตรปรับปรุง พ.ศ. 2567 · ข้อมูลสำหรับนักศึกษา IT KMUTT")
               ),
               h(
                 "div",
@@ -129,7 +129,7 @@
                     rel: "noreferrer",
                     className: "inline-flex min-h-[40px] items-center rounded-lg px-2.5 font-medium text-steel hover:bg-ice hover:underline transition-colors"
                   },
-                  "เว็บไซต์ทางการ SIT ↗"
+                  "เว็บไซต์ทางการคณะ IT ↗"
                 )
               )
             )
@@ -225,9 +225,9 @@
 
     function resetDemoData() {
       try {
-        window.localStorage.removeItem("sithero_profile_v2");
-        window.localStorage.removeItem("sithero_posts_v2");
-        window.localStorage.removeItem("sithero_notes_v2");
+        window.localStorage.removeItem("ithero_profile_v3");
+        window.localStorage.removeItem("ithero_posts_v3");
+        window.localStorage.removeItem("ithero_notes_v3");
       } catch (e) {}
       window.location.reload();
     }
@@ -242,11 +242,11 @@
         h(
           "div",
           null,
-          h("h1", { className: "text-[18px] font-semibold text-[#0D1C36]" }, "SIT Hero (IT Hero) — Modular Prototype"),
+          h("h1", { className: "text-[18px] font-semibold text-[#0D1C36]" }, "IT Hero — Modular Prototype"),
           h(
             "p",
             { className: "text-[13px] text-[#51627A]" },
-            "SIT KMUTT B.Sc. IT Curriculum (Years 1–4) · Frame ",
+            "IT KMUTT B.Sc. IT Curriculum (Years 1–4) · Frame ",
             W,
             " × ",
             H,
